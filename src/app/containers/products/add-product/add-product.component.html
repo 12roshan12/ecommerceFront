@@ -1,0 +1,107 @@
+<div class="container-fluid">
+    <div class="">
+        <div class="card">
+            <div class="card-header">
+                <strong>Add New Product</strong>
+            </div>
+            <div class="card-body">
+                <!-- method="post" enctype="multipart/form-data" -->
+                <form [formGroup]="productForm"  class="form-horizontal">
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Product Name</label>
+                        <div class="col-md-9">
+                            <input type="text" id="text-input"  formControlName="name" name="text-input" class="form-control"
+                                placeholder="Text">
+                            <!-- <span class="help-block">Please enter product name.</span> -->
+                            <!-- {{productForm.controls.name.value}} -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Brand</label>
+                        <div class="col-md-9">
+                            <input type="text" id="text-input" formControlName="brand" name="text-input" class="form-control"
+                                placeholder="Enter Brand" autocomplete="off">
+                            <!-- <span class="help-block">Please enter product brand.</span> -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Quantity</label>
+                        <div class="col-md-9">
+                            <input type="number" id="text-input" formControlName="quantity" name="text-input" class="form-control"
+                                placeholder="Quantity available" autocomplete="off">
+                            <!-- <span class="help-block">Quantity available</span> -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Price</label>
+                        <div class="col-md-9">
+                            <input type="number" id="text-input" formControlName="price" name="text-input" class="form-control"
+                                placeholder="price" autocomplete="off">
+                            <!-- <span class="help-block">Please enter product price</span> -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="select1">Product Category</label>
+                        <div class="col-md-9">
+                            <select id="select1" name="select1" formControlName="category" class="form-control">
+                                <option *ngFor="let data of categoryList" [value]="data.id">{{data.categoryName}}</option>                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="select1">Sub Category</label>
+                        <div class="col-md-9">
+                            <select id="select1" name="select1" formControlName="subcategory" class="form-control">
+                                <option *ngFor="let data of subcategoryList" [value]="data.id">{{data.description}}</option>  
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="textarea-input">Product Description</label>
+                        <div class="col-md-9">
+                            <textarea id="textarea-input" formControlName="description" name="textarea-input" rows="9" class="form-control"
+                                placeholder="Content.."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Multi Color Options</label>
+                        <div class="col-md-9 col-form-label">
+                            <div class="form-check">
+                                <input class="form-check-input" formControlName="multicolor" type="checkbox" value="option1" id="checkbox1">
+                                <label class="form-check-label" for="checkbox1">
+                                    Available
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="select1">Color Options</label>
+                        <div class="col-md-9">
+                            <!-- formControlName="colorOption" -->
+                            <select id="select1" name="select1"  class="form-control">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="file-multiple-input">Choose Product Photo</label>
+                        <div class="col-md-9">
+                            <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer d-flex justify-content-end " style="column-gap: 8px;">
+                <button type="submit" class="btn btn-sm btn-primary " (click)="submit()"><i class="fa fa-dot-circle-o"></i> Add Another</button>
+                <button type="reset" [routerLink]="['/products']" routerLinkActive="router-link-active"  class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Cancel</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

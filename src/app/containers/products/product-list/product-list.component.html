@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-body">
+      <div class="row d-flex flex-row justify-content-between mb-3">
+        <div class="p-2 mb-2">
+          <h4 class="card-title mb-0 border-bottom d-inline">Your Products</h4>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary px-2 mr-3" [routerLink]="['/products/product-add']" routerLinkActive="router-link-active" >Add Products</button>
+      </div>
+      </div>
+  
+      <table  datatable [dtOptions]="dtOptions" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Brand</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let data of productList">
+          <tr>
+            <td>{{data.name}}</td>
+            <td>{{data.price}}</td>
+            <td>{{data.brand}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+   
