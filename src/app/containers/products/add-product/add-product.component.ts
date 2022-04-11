@@ -50,7 +50,7 @@ export class AddProductComponent implements OnInit {
 
   submit() {
     console.log(this.productForm.value)
-    this.service.addproducts(this.productForm).subscribe((e:any)=>{
+    this.service.addproducts(this.productForm.value).subscribe((e:any)=>{
       console.log(e);
       
     })
