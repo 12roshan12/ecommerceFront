@@ -3,13 +3,14 @@
         <div class="card">
             <div class="card-header">
                 <strong>Add New Product</strong>
+                <button class="btn btn-danger pull-right" [routerLink]="['/products']" routerLinkActive="router-link-active" >Cancel</button>
             </div>
             <div class="card-body">
                 <!-- method="post" enctype="multipart/form-data" -->
                 <form [formGroup]="productForm" class="form-horizontal">
 
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Product Name</label>
+                        <label class="col-md-3 font-weight-bold col-form-label font-weight-bold" for="text-input">Product Name</label>
                         <div class="col-md-9">
                             <input type="text" id="text-input" formControlName="name" name="text-input"
                                 class="form-control" placeholder="Text">
@@ -18,7 +19,7 @@
                         </div>
                     </div>                   
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Quantity</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Quantity</label>
                         <div class="col-md-9">
                             <input type="number" id="text-input" formControlName="quantity" name="text-input"
                                 class="form-control" placeholder="Quantity available" autocomplete="off">
@@ -26,7 +27,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Price</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Price</label>
                         <div class="col-md-9">
                             <input type="number" id="text-input" formControlName="price" name="text-input"
                                 class="form-control" placeholder="price" autocomplete="off">
@@ -34,7 +35,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="select1">Product Category</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">Product Category</label>
                         <div class="col-md-9">
                             <select id="select1" name="select1" (change)="getSubCategory($event)"
                                 formControlName="category" class="form-control">
@@ -44,7 +45,7 @@
                         </div>
                     </div>
                     <div class="form-group row" *ngIf="productForm.controls.category.value">
-                        <label class="col-md-3 col-form-label" for="select1">Sub Category</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">Sub Category</label>
                         <div class="col-md-9">
                             <select (change)="getType($event)" id="select1" name="select1" formControlName="subcategory"
                                 class="form-control">
@@ -53,7 +54,7 @@
                         </div>
                     </div>
                     <div class="form-group row" *ngIf="productForm.controls.subcategory.value">
-                        <label class="col-md-3 col-form-label" for="select1">Product Type</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">Product Type</label>
                         <div class="col-md-9">
                             <select id="select1" name="select1" formControlName="type" class="form-control">
                                 <option *ngFor="let data of type" [value]="data.id">{{data.value}}
@@ -62,29 +63,29 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Brand</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Brand</label>
                         <div class="col-md-9">
                             <input type="text" id="text-input" formControlName="brand" name="text-input"
                                 class="form-control" placeholder="Enter Brand" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Size Available</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Size Available</label>
                         <div class="col-md-9">
                             <input type="text" id="text-input" formControlName="brand" name="text-input"
                                 class="form-control" placeholder="Enter Available Sizes" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="textarea-input">Product Description</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="textarea-input">Product Description</label>
                         <div class="col-md-9">
                             <textarea id="textarea-input" formControlName="description" name="textarea-input" rows="9"
                                 class="form-control" placeholder="Content.."></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Multi Color Options</label>
-                        <div class="col-md-9 col-form-label">
+                        <label class="col-md-3 col-form-label font-weight-bold">Multi Color Options</label>
+                        <div class="col-md-9 col-form-label font-weight-bold">
                             <div class="form-check">
                                 <input class="form-check-input" formControlName="multicolor" type="checkbox"
                                     value="option1" id="checkbox1">
@@ -96,7 +97,7 @@
                         </div>
                     </div>
                     <div class="form-group row" *ngIf="productForm.controls.multicolor.value == true">
-                        <label class="col-md-3 col-form-label" for="select1">Color Options</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">Color Options</label>
                         <div class="col-md-9">
                             <!--  -->
                             <ng-multiselect-dropdown [placeholder]="'Color Options'" [settings]="dropdownSettings"
@@ -107,14 +108,14 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="select1">Main Product Image</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">Main Product Image</label>
                         <div class="col-md-9">
                             <ngp-image-picker [_config]="imagePickerConf" ($imageChanged)="onImageChange($event)">
                             </ngp-image-picker>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="select1">Product Sub Image</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">Product Sub Image</label>
                         <div class="d-flex flex-row row-md-3 row-sm-2 ">
                             <div class="p-2" >
                                 <ngp-image-picker [_config]="config2" ($imageChanged)="onImageChange($event)">
@@ -132,7 +133,7 @@
 
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="select1">You can add Some tag to boost your product.</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">You can add Some tag to boost your product.</label>
                         
                         <div class="col-md-9">
                             <textarea id="textarea-input" formControlName="tag" name="textarea-input" rows="9"

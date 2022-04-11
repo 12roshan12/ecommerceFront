@@ -84,6 +84,14 @@ export const routes: Routes = [
             
           },
           {
+            path:'product-add/:id',
+            component:AddProductComponent,
+            data: {
+              title: 'Product Add'
+            },
+            
+          },
+          {
             path:'',
             component:ProductListComponent,
             data: {

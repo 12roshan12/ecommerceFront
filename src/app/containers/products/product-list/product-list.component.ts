@@ -28,4 +28,9 @@ export class ProductListComponent implements OnInit {
       pagingType: 'full_numbers'
     }
   }
+
+  update(event){
+    console.log("router.navigatebyurl");
+    
+  }
 }
