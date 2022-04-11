@@ -1,7 +1,7 @@
 export const fake =  {
     "products": [
         { "id":1,"name": "Black Man Jacket","description":"black man wear jacket","MainImageUrl":"","price":"1000","Quantity":"5","category":1,"subCategory":1,"type":1,"attributes":1},
-        { "id":2,"name": "White Man Jacket","description":"black man wear jacket","MainImageUrl":"","price":"1000","Quantity":"5","category":1,"subCategory":1,"type":1,"attributes":1},
+        { "id":2,"name": "White Man Jacket","description":"black man wear jacket","MainImageUrl":"","price":"1000","Quantity":"4","category":1,"subCategory":1,"type":1,"attributes":1},
         { "id":3,"name": "Red Man Jacket","description":"black man wear jacket","MainImageUrl":"","price":"1000","Quantity":"5","category":1,"subCategory":1,"type":1,"attributes":1}
     ],
     
