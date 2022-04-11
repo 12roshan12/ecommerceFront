@@ -58,6 +58,8 @@ import { AddProductComponent } from './containers/products/add-product/add-produ
 import { ProductListComponent } from './containers/products/product-list/product-list.component';
 import { ProductService } from './services/product.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgpImagePickerModule } from 'ngp-image-picker';
 
 @NgModule({
   imports: [
@@ -81,7 +83,9 @@ import { HttpClientModule } from '@angular/common/http';
     BsDropdownModule,
     ButtonsModule.forRoot(),
     DataTablesModule,
-    HttpClientModule
+    HttpClientModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    NgpImagePickerModule
 
   ],
   declarations: [

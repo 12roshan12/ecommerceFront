@@ -14,14 +14,18 @@
           <tr>
             <th>Name</th>
             <th>Price</th>
-            <th>Brand</th>
+            <th>Quantity</th>
+            <th>Image</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody *ngFor="let data of productList">
           <tr>
             <td>{{data.name}}</td>
             <td>{{data.price}}</td>
-            <td>{{data.brand}}</td>
+            <td>{{data.Quantity}}</td>
+            <td><img [src]="data.MainImageUrl" alt="Product Image"></td>
+            <td> <i class="fas fa-edit"> </i> <i class="fas fa-edit"></i> </td>
           </tr>
         </tbody>
       </table>

@@ -6,69 +6,88 @@
             </div>
             <div class="card-body">
                 <!-- method="post" enctype="multipart/form-data" -->
-                <form [formGroup]="productForm"  class="form-horizontal">
+                <form [formGroup]="productForm" class="form-horizontal">
 
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="text-input">Product Name</label>
                         <div class="col-md-9">
-                            <input type="text" id="text-input"  formControlName="name" name="text-input" class="form-control"
-                                placeholder="Text">
+                            <input type="text" id="text-input" formControlName="name" name="text-input"
+                                class="form-control" placeholder="Text">
                             <!-- <span class="help-block">Please enter product name.</span> -->
                             <!-- {{productForm.controls.name.value}} -->
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Brand</label>
-                        <div class="col-md-9">
-                            <input type="text" id="text-input" formControlName="brand" name="text-input" class="form-control"
-                                placeholder="Enter Brand" autocomplete="off">
-                            <!-- <span class="help-block">Please enter product brand.</span> -->
-                        </div>
-                    </div>
+                    </div>                   
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="text-input">Quantity</label>
                         <div class="col-md-9">
-                            <input type="number" id="text-input" formControlName="quantity" name="text-input" class="form-control"
-                                placeholder="Quantity available" autocomplete="off">
+                            <input type="number" id="text-input" formControlName="quantity" name="text-input"
+                                class="form-control" placeholder="Quantity available" autocomplete="off">
                             <!-- <span class="help-block">Quantity available</span> -->
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="text-input">Price</label>
                         <div class="col-md-9">
-                            <input type="number" id="text-input" formControlName="price" name="text-input" class="form-control"
-                                placeholder="price" autocomplete="off">
+                            <input type="number" id="text-input" formControlName="price" name="text-input"
+                                class="form-control" placeholder="price" autocomplete="off">
                             <!-- <span class="help-block">Please enter product price</span> -->
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="select1">Product Category</label>
                         <div class="col-md-9">
-                            <select id="select1" name="select1" formControlName="category" class="form-control">
-                                <option *ngFor="let data of categoryList" [value]="data.id">{{data.categoryName}}</option>                                
+                            <select id="select1" name="select1" (change)="getSubCategory($event)"
+                                formControlName="category" class="form-control">
+                                <option *ngFor="let data of categoryList" [value]="data.id">{{data.value}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row" *ngIf="productForm.controls.category.value">
+                        <label class="col-md-3 col-form-label" for="select1">Sub Category</label>
+                        <div class="col-md-9">
+                            <select (change)="getType($event)" id="select1" name="select1" formControlName="subcategory"
+                                class="form-control">
+                                <option *ngFor="let data of subcategoryList" [value]="data.id">{{data.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row" *ngIf="productForm.controls.subcategory.value">
+                        <label class="col-md-3 col-form-label" for="select1">Product Type</label>
+                        <div class="col-md-9">
+                            <select id="select1" name="select1" formControlName="type" class="form-control">
+                                <option *ngFor="let data of type" [value]="data.id">{{data.value}}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="select1">Sub Category</label>
+                        <label class="col-md-3 col-form-label" for="text-input">Brand</label>
                         <div class="col-md-9">
-                            <select id="select1" name="select1" formControlName="subcategory" class="form-control">
-                                <option *ngFor="let data of subcategoryList" [value]="data.id">{{data.description}}</option>  
-                            </select>
+                            <input type="text" id="text-input" formControlName="brand" name="text-input"
+                                class="form-control" placeholder="Enter Brand" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Size Available</label>
+                        <div class="col-md-9">
+                            <input type="text" id="text-input" formControlName="brand" name="text-input"
+                                class="form-control" placeholder="Enter Available Sizes" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="textarea-input">Product Description</label>
                         <div class="col-md-9">
-                            <textarea id="textarea-input" formControlName="description" name="textarea-input" rows="9" class="form-control"
-                                placeholder="Content.."></textarea>
+                            <textarea id="textarea-input" formControlName="description" name="textarea-input" rows="9"
+                                class="form-control" placeholder="Content.."></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Multi Color Options</label>
                         <div class="col-md-9 col-form-label">
                             <div class="form-check">
-                                <input class="form-check-input" formControlName="multicolor" type="checkbox" value="option1" id="checkbox1">
+                                <input class="form-check-input" formControlName="multicolor" type="checkbox"
+                                    value="option1" id="checkbox1">
                                 <label class="form-check-label" for="checkbox1">
                                     Available
                                 </label>
@@ -76,29 +95,57 @@
 
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" *ngIf="productForm.controls.multicolor.value == true">
                         <label class="col-md-3 col-form-label" for="select1">Color Options</label>
                         <div class="col-md-9">
-                            <!-- formControlName="colorOption" -->
-                            <select id="select1" name="select1"  class="form-control">
-                                <option value="0">Please select</option>
-                                <option value="1">Option #1</option>
-                                <option value="2">Option #2</option>
-                                <option value="3">Option #3</option>
-                            </select>
+                            <!--  -->
+                            <ng-multiselect-dropdown [placeholder]="'Color Options'" [settings]="dropdownSettings"
+                                [data]="dropdownList" [formControlName]="'colorOption'"
+                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                            </ng-multiselect-dropdown>
+                            <!-- [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}" -->
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="file-multiple-input">Choose Product Photo</label>
+                        <label class="col-md-3 col-form-label" for="select1">Main Product Image</label>
                         <div class="col-md-9">
-                            <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
+                            <ngp-image-picker [_config]="imagePickerConf" ($imageChanged)="onImageChange($event)">
+                            </ngp-image-picker>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="select1">Product Sub Image</label>
+                        <div class="d-flex flex-row row-md-3 row-sm-2 ">
+                            <div class="p-2" >
+                                <ngp-image-picker [_config]="config2" ($imageChanged)="onImageChange($event)">
+                                </ngp-image-picker>
+                            </div>
+                            <div class="p-2" >
+                                <ngp-image-picker [_config]="config2" ($imageChanged)="onImageChange($event)">
+                                </ngp-image-picker>
+                            </div>
+                            <div class="p-2" >
+                                <ngp-image-picker [_config]="config2" ($imageChanged)="onImageChange($event)">
+                                </ngp-image-picker>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="select1">You can add Some tag to boost your product.</label>
+                        
+                        <div class="col-md-9">
+                            <textarea id="textarea-input" formControlName="tag" name="textarea-input" rows="9"
+                                class="form-control" placeholder="Content.."></textarea>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="card-footer d-flex justify-content-end " style="column-gap: 8px;">
-                <button type="submit" class="btn btn-sm btn-primary " (click)="submit()"><i class="fa fa-dot-circle-o"></i> Add Another</button>
-                <button type="reset" [routerLink]="['/products']" routerLinkActive="router-link-active"  class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Cancel</button>
+                <button type="submit" class="btn btn-sm btn-primary " (click)="submit()"><i
+                        class="fa fa-dot-circle-o"></i> Add Another</button>
+                <button type="reset" [routerLink]="['/products']" routerLinkActive="router-link-active"
+                    class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Cancel</button>
             </div>
         </div>
 
