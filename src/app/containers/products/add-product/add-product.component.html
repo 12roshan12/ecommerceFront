@@ -132,21 +132,14 @@
                             </ng-multiselect-dropdown> -->
                             <color-swatches class="m-2" [color]="" (onChangeComplete)="changeComplete($event)">
                             </color-swatches>
-                            <!-- [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}" -->
-                            <table class="table m-2 ">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Color</th>
-                                        <th scope="col">Quantity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th><div class="rounded " style="height: 20px; width: 50px; background-color: rgba(63, 81, 181, 1);"></div></th>
-                                        <td>5</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="flex flex-row">
+                            <div [ngStyle]="{'background-color': colorOption}" class="rounded-full border-1 border-black w-8 h-8  "></div>
+                            <div [ngStyle]="{'background-color': colorOption}" class="rounded-full border-1 border-black w-8 h-8  "></div>
+                            <div [ngStyle]="{'background-color': colorOption}" class="rounded-full border-1 border-black w-8 h-8  "></div>
+                            
+                            </div>
+                           <!-- [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}" -->
+                            
                         </div>
                     </div>
                     <div class="form-group row">
@@ -160,13 +153,12 @@
                 </form>
             </div>
             <div class="card-footer d-flex justify-content-end " style="column-gap: 8px;">
-                <button type="submit" class="btn btn-sm btn-primary " (click)="submit()"><i
+                <button type="submit" class="btn btn-sm bg-blue-400 hover:bg-blue-700" (click)="submit()"><i
                         class="fa fa-dot-circle-o"></i> Add Another</button>
                 <button type="reset" [routerLink]="['/products']" routerLinkActive="router-link-active"
-                    class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Cancel</button>
+                    class="btn btn-sm bg-red-400 hover:bg-red-700"><i class="fa fa-ban"></i> Cancel</button>
             </div>
         </div>
-
     </div>
 
 </div>
