@@ -60,6 +60,7 @@ import { ProductService } from './services/product.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgpImagePickerModule } from 'ngp-image-picker';
+import { ColorSwatchesModule } from 'ngx-color/swatches';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import { NgpImagePickerModule } from 'ngp-image-picker';
     DataTablesModule,
     HttpClientModule,
     NgMultiSelectDropDownModule.forRoot(),
-    NgpImagePickerModule
+    NgpImagePickerModule,
+    ColorSwatchesModule
 
   ],
   declarations: [

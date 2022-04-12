@@ -23,6 +23,10 @@ export class AddProductComponent implements OnInit {
   type: any[];
   subcategoryDisabled: boolean = true;
   typeDisabled: boolean = true;
+  r:any;
+  g:any;
+  b:any;
+  a:any;
 
   imagePickerConf: ImagePickerConf = {
     borderRadius: '4px',
@@ -129,10 +133,6 @@ export class AddProductComponent implements OnInit {
     console.log(this.type);
   }
 
-  
-
-
-
   submit() {
     console.log(this.productForm.value)
     this.service.addproducts(this.productForm.value).subscribe((e: any) => {
@@ -143,7 +143,6 @@ export class AddProductComponent implements OnInit {
 
   test() {
     console.log(this.productForm.controls.name.value);
-
   }
 
   onItemSelect(item: any) {
@@ -154,9 +153,23 @@ export class AddProductComponent implements OnInit {
   }
 
   onImageChange(event){
+    console.log(event);    
+  }
+
+  getTag(event){
+    var search= event.target.value;
+     var a = search.split(',')
+    this.productForm.get('tag').setValue(a)     
+  }
+
+  getSize(event){
+    var search= event.target.value;
+     var a = search.split(',')
+    this.productForm.get('sizes').setValue(a)     
+  }
+  changeComplete(event){
     console.log(event);
     
   }
-
 
 }

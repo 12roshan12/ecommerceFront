@@ -3,21 +3,23 @@
         <div class="card">
             <div class="card-header">
                 <strong>Add New Product</strong>
-                <button class="btn btn-danger pull-right" [routerLink]="['/products']" routerLinkActive="router-link-active" >Cancel</button>
+                <button class="btn btn-danger pull-right" [routerLink]="['/products']"
+                    routerLinkActive="router-link-active">Cancel</button>
             </div>
             <div class="card-body">
                 <!-- method="post" enctype="multipart/form-data" -->
                 <form [formGroup]="productForm" class="form-horizontal">
 
                     <div class="form-group row">
-                        <label class="col-md-3 font-weight-bold col-form-label font-weight-bold" for="text-input">Product Name</label>
+                        <label class="col-md-3 font-weight-bold col-form-label font-weight-bold"
+                            for="text-input">Product Name</label>
                         <div class="col-md-9">
                             <input type="text" id="text-input" formControlName="name" name="text-input"
                                 class="form-control" placeholder="Text">
                             <!-- <span class="help-block">Please enter product name.</span> -->
                             <!-- {{productForm.controls.name.value}} -->
                         </div>
-                    </div>                   
+                    </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Quantity</label>
                         <div class="col-md-9">
@@ -72,39 +74,17 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Size Available</label>
                         <div class="col-md-9">
-                            <input type="text" id="text-input" formControlName="brand" name="text-input"
-                                class="form-control" placeholder="Enter Available Sizes" autocomplete="off">
+                            <input type="text" id="text-input" (blur)="getSize($event)" formControlName="sizes"
+                                name="text-input" class="form-control" placeholder="Enter Available Sizes"
+                                autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label font-weight-bold" for="textarea-input">Product Description</label>
+                        <label class="col-md-3 col-form-label font-weight-bold" for="textarea-input">Product
+                            Description</label>
                         <div class="col-md-9">
                             <textarea id="textarea-input" formControlName="description" name="textarea-input" rows="9"
                                 class="form-control" placeholder="Content.."></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label font-weight-bold">Multi Color Options</label>
-                        <div class="col-md-9 col-form-label font-weight-bold">
-                            <div class="form-check">
-                                <input class="form-check-input" formControlName="multicolor" type="checkbox"
-                                    value="option1" id="checkbox1">
-                                <label class="form-check-label" for="checkbox1">
-                                    Available
-                                </label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="form-group row" *ngIf="productForm.controls.multicolor.value == true">
-                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">Color Options</label>
-                        <div class="col-md-9">
-                            <!--  -->
-                            <ng-multiselect-dropdown [placeholder]="'Color Options'" [settings]="dropdownSettings"
-                                [data]="dropdownList" [formControlName]="'colorOption'"
-                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                            </ng-multiselect-dropdown>
-                            <!-- [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}" -->
                         </div>
                     </div>
                     <div class="form-group row">
@@ -117,27 +97,64 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label font-weight-bold" for="select1">Product Sub Image</label>
                         <div class="d-flex flex-row row-md-3 row-sm-2 ">
-                            <div class="p-2" >
+                            <div class="p-2">
                                 <ngp-image-picker [_config]="config2" ($imageChanged)="onImageChange($event)">
                                 </ngp-image-picker>
                             </div>
-                            <div class="p-2" >
+                            <div class="p-2">
                                 <ngp-image-picker [_config]="config2" ($imageChanged)="onImageChange($event)">
                                 </ngp-image-picker>
                             </div>
-                            <div class="p-2" >
+                            <div class="p-2">
                                 <ngp-image-picker [_config]="config2" ($imageChanged)="onImageChange($event)">
                                 </ngp-image-picker>
                             </div>
                         </div>
-
+                    </div>
+                    <!-- <div class="form-group row">
+                        <label class="col-md-3 col-form-label font-weight-bold">Multi Color Options</label>
+                        <div class="col-md-9 col-form-label font-weight-bold">
+                            <div class="form-check">
+                                <input class="form-check-input" formControlName="multicolor" type="checkbox"
+                                    value="option1" id="checkbox1">
+                                <label class="form-check-label" for="checkbox1">
+                                    Available
+                                </label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-group row" >
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">Color Options</label>
+                        <div class=" col-md-9 d-flex ">
+                            <!-- <ng-multiselect-dropdown [placeholder]="'Color Options'" [settings]="dropdownSettings"
+                                [data]="dropdownList" [formControlName]="'colorOption'"
+                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                            </ng-multiselect-dropdown> -->
+                            <color-swatches class="m-2" [color]="" (onChangeComplete)="changeComplete($event)">
+                            </color-swatches>
+                            <!-- [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}" -->
+                            <table class="table m-2 ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Color</th>
+                                        <th scope="col">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th><div class="rounded " style="height: 20px; width: 50px; background-color: rgba(63, 81, 181, 1);"></div></th>
+                                        <td>5</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">You can add Some tag to boost your product.</label>
-                        
+                        <label class="col-md-3 col-form-label font-weight-bold" for="select1">You can add Some tag to
+                            boost your product.</label>
                         <div class="col-md-9">
-                            <textarea id="textarea-input" formControlName="tag" name="textarea-input" rows="9"
-                                class="form-control" placeholder="Content.."></textarea>
+                            <textarea id="textarea-input" (blur)="getTag($event)" formControlName="tag"
+                                name="textarea-input" rows="9" class="form-control" placeholder="Content.."></textarea>
                         </div>
                     </div>
                 </form>
