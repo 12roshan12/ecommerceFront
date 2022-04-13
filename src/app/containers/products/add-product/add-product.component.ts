@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../../services/product.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { fake } from '../fake';
@@ -23,11 +23,11 @@ export class AddProductComponent implements OnInit {
   type: any[];
   subcategoryDisabled: boolean = true;
   typeDisabled: boolean = true;
-  r:any;
-  g:any;
-  b:any;
-  a:any;
-  colorOption = '#9c27b0'
+  r: any;
+  g: any;
+  b: any;
+  a: any;
+  // colorOption = '#9c27b0'
 
   imagePickerConf: ImagePickerConf = {
     borderRadius: '4px',
@@ -37,7 +37,7 @@ export class AddProductComponent implements OnInit {
     hideDownloadBtn: true
 
   };
-   config2: ImagePickerConf = {
+  config2: ImagePickerConf = {
     borderRadius: '50%',
     language: 'en',
     width: '100px',
@@ -45,7 +45,7 @@ export class AddProductComponent implements OnInit {
     hideDeleteBtn: true,
     hideDownloadBtn: true
   };
-  
+
 
 
   constructor(private service: ProductService, private fb: FormBuilder) { }
@@ -59,7 +59,7 @@ export class AddProductComponent implements OnInit {
       // { item_id: 4, item_text: 'Navsari' }
     ];
     this.dropdownSettings = {
-      singleSelection: false,      
+      singleSelection: false,
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
@@ -88,7 +88,7 @@ export class AddProductComponent implements OnInit {
       brand: [''],
       category: [''],
       multicolor: [''],
-      colorOption: [],
+      colorOption: this.fb.array([]),
       subcategory: [''],
       type: [''],
       sizes: [''],
@@ -98,39 +98,27 @@ export class AddProductComponent implements OnInit {
       mainPicURL: [''],
       subPicURL: [''],
       attribute: [],
-      productAttributes: this.fb.array['']
     });
-
-
-
   }
 
-  get productAttributs() {
-    return this.productForm.get('productAttributes') as FormArray
+  get colorOption() {
+    return this.productForm.controls["colorOption"] as FormArray;
   }
 
-
-  arrayForm() {
-    this.attributeForm = this.fb.group({
-      size: [''],
-      neckType: [''],
-      sleeve: ['']
-    })
-  }
 
   getSubCategory(event) {
     console.log(event.target.value);
     this.subcategoryDisabled = false
     this.subcategoryList = fake.details.subCategory;
-    this.subcategoryList = this.subcategoryList.filter( e=> e.categoryId === Number( event.target.value) )
+    this.subcategoryList = this.subcategoryList.filter(e => e.categoryId === Number(event.target.value))
     console.log(this.subcategoryList);
   }
 
-  getType(event){
+  getType(event) {
     console.log(event.target.value);
     this.typeDisabled = false
     this.type = fake.details.type
-    this.type = this.type.filter( e=> e.subCategoryId === Number( event.target.value) )
+    this.type = this.type.filter(e => e.subCategoryId === Number(event.target.value))
     console.log(this.type);
   }
 
@@ -153,24 +141,35 @@ export class AddProductComponent implements OnInit {
     console.log(items);
   }
 
-  onImageChange(event){
-    console.log(event);    
-  }
-
-  getTag(event){
-    var search= event.target.value;
-     var a = search.split(',')
-    this.productForm.get('tag').setValue(a)     
-  }
-
-  getSize(event){
-    var search= event.target.value;
-     var a = search.split(',')
-    this.productForm.get('sizes').setValue(a)     
-  }
-  changeComplete(event){
+  onImageChange(event) {
     console.log(event);
-    this.colorOption = event.color.hex
   }
+
+  getTag(event) {
+    var search = event.target.value;
+    var a = search.split(',')
+    this.productForm.get('tag').setValue(a)
+  }
+
+  getSize(event) {
+    var search = event.target.value;
+    var a = search.split(',')
+    this.productForm.get('sizes').setValue(a)
+  }
+  changeComplete(event) {
+    const colorForm = this.fb.group({
+      name: [event.color.hex, Validators.required],
+    });
+    this.colorOption.push(colorForm);
+    console.log(this.productForm.controls.colorOption.value);
+
+  }
+
+  removeColor(index) {
+    this.colorOption.removeAt(index)
+
+
+  }
+
 
 }

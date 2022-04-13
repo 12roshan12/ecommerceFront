@@ -8,6 +8,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -87,7 +88,8 @@ import { ColorSwatchesModule } from 'ngx-color/swatches';
     HttpClientModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgpImagePickerModule,
-    ColorSwatchesModule
+    ColorSwatchesModule,
+    MatTooltipModule
 
   ],
   declarations: [
