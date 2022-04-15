@@ -1,0 +1,16 @@
+<div [formGroup]="imageForm" enctype="multipart/form-data">
+    <input type="file" #imageInput accept="image/*"  name="uploaded_file"  (change)="test1($event)" >
+
+    <ngp-image-picker #imageInput
+    [_config]="imagePickerConf"
+    (change)="test(imageInput)"
+    accept="image/*"
+  >
+  </ngp-image-picker>
+  <button (click)="submit()"  class="border rounded m-2 p-2 bg-blue-400 " > Add </button>
+
+</div>
+
+<div>
+
+</div>

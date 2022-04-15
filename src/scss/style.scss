@@ -10,3 +10,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+
+.ng2-tag-input{
+    border-bottom: none !important;
+}
+

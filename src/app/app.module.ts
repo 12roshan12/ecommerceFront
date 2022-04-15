@@ -62,6 +62,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgpImagePickerModule } from 'ngp-image-picker';
 import { ColorSwatchesModule } from 'ngx-color/swatches';
+import { TagInputModule } from 'ngx-chips';
+import { ImagesComponent } from './containers/images/images.component';
 
 @NgModule({
   imports: [
@@ -89,7 +91,8 @@ import { ColorSwatchesModule } from 'ngx-color/swatches';
     NgMultiSelectDropDownModule.forRoot(),
     NgpImagePickerModule,
     ColorSwatchesModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TagInputModule
 
   ],
   declarations: [
@@ -108,7 +111,8 @@ import { ColorSwatchesModule } from 'ngx-color/swatches';
     SettingsComponent,
     DashboardComponent,
     AddProductComponent,
-    ProductListComponent
+    ProductListComponent,
+    ImagesComponent
   ],
   providers: [
     {

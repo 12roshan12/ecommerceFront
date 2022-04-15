@@ -6,6 +6,7 @@ import { DefaultLayoutComponent } from './containers';
 import { AnalyticsComponent } from './containers/analytics/analytics.component';
 import { DashboardComponent } from './containers/dash/dash.component';
 import { DeliveryComponent } from './containers/delivery/delivery.component';
+import { ImagesComponent } from './containers/images/images.component';
 import { MessagesComponent } from './containers/messages/messages.component';
 import { OrdersComponent } from './containers/orders/orders.component';
 import { PayoutsComponent } from './containers/payouts/payouts.component';
@@ -150,6 +151,13 @@ export const routes: Routes = [
           title: 'Settings'
         }
 
+      },
+      {
+        path:'images',
+        component:ImagesComponent,
+        data:{
+          title:'images'
+        }
       }
     ]
   },

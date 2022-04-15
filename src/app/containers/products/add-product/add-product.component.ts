@@ -27,7 +27,8 @@ export class AddProductComponent implements OnInit {
   g: any;
   b: any;
   a: any;
-  // colorOption = '#9c27b0'
+  itemsAsObjects: any;
+    // colorOption = '#9c27b0'
 
   imagePickerConf: ImagePickerConf = {
     borderRadius: '4px',
