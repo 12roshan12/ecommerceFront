@@ -1,9 +1,9 @@
 <div [formGroup]="imageForm" enctype="multipart/form-data">
     <input type="file" #imageInput accept="image/*"  name="uploaded_file"  (change)="test1($event)" >
 
-    <ngp-image-picker #imageInput
+    <ngp-image-picker 
     [_config]="imagePickerConf"
-    (change)="test(imageInput)"
+    (change)="test1($event)"
     accept="image/*"
   >
   </ngp-image-picker>
