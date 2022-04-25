@@ -30,17 +30,12 @@ export class ProductService {
     return this._http.post<any>(`${environment.MainApi}/products/addproducts`,body,{'headers':this.header}).pipe();
   }
 
-  addImages(image:File){
-
-    console.log(image);
-    
-    let formParams = new FormData();
-    formParams.append('file', image)
-    console.log( "www"+ formParams);
-    
-
-    return this._http.post<any>(`${environment.MainApi}/api/upload`,formParams).pipe();
+  addImages(image:any){ 
+     return this._http.post<any>(`${environment.MainApi}/api/upload`,image).pipe();
   }
+  addSubImages(image:any){ 
+    return this._http.post<any>(`${environment.MainApi}/api/upload/multiple`,image).pipe();
+ }
 
   getImages(){
     return this._http.get<any>(`${environment.MainApi}/images/getimages`).pipe();

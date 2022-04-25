@@ -28,6 +28,7 @@ export class AddProductComponent implements OnInit {
   b: any;
   a: any;
   itemsAsObjects: any;
+  subImageList: any = [];
     // colorOption = '#9c27b0'
 
   imagePickerConf: ImagePickerConf = {
@@ -83,22 +84,24 @@ export class AddProductComponent implements OnInit {
 
   buildForm() {
     this.productForm = this.fb.group({
+      vendorId:['130380407'],
       name: [''],
       description: [''],
       quantity: [''],
-      brand: [''],
-      category: [''],
-      multicolor: [''],
-      colorOption: this.fb.array([]),
-      subcategory: [''],
-      type: [''],
-      sizes: [''],
-      tag: [''],
-      vendor: [130380407],
       price: [''],
-      mainPicURL: [''],
-      subPicURL: [''],
-      attribute: [],
+      categoryId: [''],
+      subCategoryId: [''],
+      typeId: [''],
+      brand: [''],      
+      sizeAvailable: [''], 
+      mainImageUrl: [''],
+      subImageUrl: [''],
+      colorOption: [''],
+      tags: [''],
+      createdBy: [''],      
+      updatedBy: [''],      
+      createdOn: [''],      
+      updatedOn: [''],      
     });
   }
 
@@ -124,6 +127,10 @@ export class AddProductComponent implements OnInit {
   }
 
   submit() {
+    let temp = this.productForm.get('tags').value
+    // JSON.stringify(temp)
+    console.log(temp);
+    
     console.log(this.productForm.value)
     this.service.addproducts(this.productForm.value).subscribe((e: any) => {
       console.log(e);
@@ -142,34 +149,65 @@ export class AddProductComponent implements OnInit {
     console.log(items);
   }
 
-  onImageChange(event) {
-    console.log(event);
-  }
+  
 
-  getTag(event) {
-    var search = event.target.value;
-    var a = search.split(',')
-    this.productForm.get('tag').setValue(a)
-  }
+  // getTag(event) {
+  //   var search = event.target.value;
+  //   var a = search.split(',')
+  //   this.productForm.get('tags').setValue(a)
+  //   console.log(this.productForm.controls.tags.value);    
+  // }
 
-  getSize(event) {
-    var search = event.target.value;
-    var a = search.split(',')
-    this.productForm.get('sizes').setValue(a)
-  }
+  // getSize(event) {
+  //   var search = event.target.value;
+  //   var a = search.split(',')
+  //   JSON.stringify(a)
+  //   this.productForm.get('sizes').setValue(a)
+  // }
+
   changeComplete(event) {
     const colorForm = this.fb.group({
       name: [event.color.hex, Validators.required],
     });
     this.colorOption.push(colorForm);
     console.log(this.productForm.controls.colorOption.value);
-
   }
 
   removeColor(index) {
     this.colorOption.removeAt(index)
+  }
 
+  onImageChange(e) {
+    console.log(e);
+    const files = e.target.files[0];     
+    let formParams = new FormData();
+    formParams.append('file', files )    
+    console.log(formParams);
+    
+    this.service.addImages(formParams).subscribe((e:any)=>{
+      console.log(e);
+  })
+}
 
+  subImage(e){
+    console.log(e);
+    const files = e.target.files[0];
+    console.log(files);    
+    this.subImageList.push(files)       
+    
+  }
+
+  post(){
+    let formParams = new FormData();    
+    for(let img of this.subImageList){
+      formParams.append('file', img ) 
+    }
+      
+    console.log(formParams);
+     
+    this.service.addSubImages(formParams).subscribe((e:any)=>{
+      console.log(e);
+  })
   }
 
 

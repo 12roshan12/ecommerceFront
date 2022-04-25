@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { ImagePickerConf } from 'ngp-image-picker';
+import { async } from 'rxjs';
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
@@ -15,7 +16,7 @@ export class ImagesComponent implements OnInit {
 
   selectedFile: ImageSnippet;
   imageForm:FormGroup
-  images: any;
+  images: any = [];
   imagePickerConf: ImagePickerConf = {
     borderRadius: '4px',
     language: 'en',
@@ -27,16 +28,26 @@ export class ImagesComponent implements OnInit {
 
   constructor(private fb:FormBuilder,private imageService: ProductService) { }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.imageForm = this.fb.group({
       name:['']
     })
 
-    this.imageService.getImages().subscribe((e:any)=>{
+     this.imageService.getImages().subscribe((e:any)=>{
       console.log(e);
-      this.images  = e
-    })
-  }
+      this.images = e.map(element => {
+        return "http://localhost:5001/images/" + `${element.filename}`
+      });    
+      console.log(this.images);            
+      })
+      
+
+
+    }
+
+    
+
+  
 
   submit(){
     console.log(this.imageForm.value);

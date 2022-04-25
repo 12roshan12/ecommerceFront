@@ -12,7 +12,6 @@
         </button>
       </div>
       <div class="card-body">
-        <!-- method="post" enctype="multipart/form-data" -->
         <form [formGroup]="productForm" class="form-horizontal">
           <div class="form-group row">
             <label
@@ -24,13 +23,12 @@
               <input
                 type="text"
                 id="text-input"
-                formControlName="name"
+                [formControlName]="'name'"
                 name="text-input"
                 class="form-control"
                 placeholder="Text"
               />
-              <!-- <span class="help-block">Please enter product name.</span> -->
-              <!-- {{productForm.controls.name.value}} -->
+              
             </div>
           </div>
           <div class="form-group row">
@@ -43,13 +41,12 @@
               <input
                 type="number"
                 id="text-input"
-                formControlName="quantity"
+                [formControlName]="'quantity'"
                 name="text-input"
                 class="form-control"
                 placeholder="Quantity available"
                 autocomplete="off"
               />
-              <!-- <span class="help-block">Quantity available</span> -->
             </div>
           </div>
           <div class="form-group row">
@@ -62,13 +59,12 @@
               <input
                 type="number"
                 id="text-input"
-                formControlName="price"
+                [formControlName]="'price'"
                 name="text-input"
                 class="form-control"
                 placeholder="price"
                 autocomplete="off"
               />
-              <!-- <span class="help-block">Please enter product price</span> -->
             </div>
           </div>
           <div class="form-group row">
@@ -82,7 +78,7 @@
                 id="select1"
                 name="select1"
                 (change)="getSubCategory($event)"
-                formControlName="category"
+                [formControlName]="'categoryId'"
                 class="form-control"
               >
                 <option *ngFor="let data of categoryList" [value]="data.id">
@@ -93,7 +89,7 @@
           </div>
           <div
             class="form-group row"
-            *ngIf="productForm.controls.category.value"
+            *ngIf="productForm.controls.categoryId.value"
           >
             <label
               class="col-md-3 col-form-label font-weight-bold"
@@ -105,7 +101,7 @@
                 (change)="getType($event)"
                 id="select1"
                 name="select1"
-                formControlName="subcategory"
+                [formControlName]="'subCategoryId'"
                 class="form-control"
               >
                 <option *ngFor="let data of subcategoryList" [value]="data.id">
@@ -116,7 +112,7 @@
           </div>
           <div
             class="form-group row"
-            *ngIf="productForm.controls.subcategory.value"
+            *ngIf="productForm.controls.subCategoryId.value"
           >
             <label
               class="col-md-3 col-form-label font-weight-bold"
@@ -127,7 +123,7 @@
               <select
                 id="select1"
                 name="select1"
-                formControlName="type"
+                [formControlName]="'typeId'"
                 class="form-control"
               >
                 <option *ngFor="let data of type" [value]="data.id">
@@ -146,7 +142,7 @@
               <input
                 type="text"
                 id="text-input"
-                formControlName="brand"
+                [formControlName]="'brand'"
                 name="text-input"
                 class="form-control"
                 placeholder="Enter Brand"
@@ -161,17 +157,8 @@
               >Size Available</label
             >
             <div class="col-md-9"> 
-              <tag-input  formControlName="sizes" class="  border rounded"  ></tag-input>
-              <!-- <input
-                type="text"
-                id="text-input"
-                (blur)="getSize($event)"
-                formControlName="sizes"
-                name="text-input"
-                class="form-control"
-                placeholder="Enter Available Sizes"
-                autocomplete="off"
-              /> -->
+              <tag-input  [formControlName]="'sizeAvailable'" class="  border rounded"  ></tag-input>
+             
             </div>
           </div>
           <div class="form-group row">
@@ -183,7 +170,7 @@
             <div class="col-md-9">
               <textarea
                 id="textarea-input"
-                formControlName="description"
+                [formControlName]="'description'"
                 name="textarea-input"
                 rows="9"
                 class="form-control"
@@ -200,7 +187,7 @@
             <div class="col-md-9">
               <ngp-image-picker
                 [_config]="imagePickerConf"
-                ($imageChanged)="onImageChange($event)"
+                (change)="onImageChange($event)"
               >
               </ngp-image-picker>
             </div>
@@ -215,38 +202,27 @@
               <div class="p-2">
                 <ngp-image-picker
                   [_config]="config2"
-                  ($imageChanged)="onImageChange($event)"
+                  (change)="subImage($event)"
                 >
                 </ngp-image-picker>
               </div>
               <div class="p-2">
                 <ngp-image-picker
                   [_config]="config2"
-                  ($imageChanged)="onImageChange($event)"
+                  (change)="subImage($event)"
                 >
                 </ngp-image-picker>
               </div>
               <div class="p-2">
                 <ngp-image-picker
                   [_config]="config2"
-                  ($imageChanged)="onImageChange($event)"
+                  (change)="subImage($event)"
                 >
                 </ngp-image-picker>
               </div>
             </div>
           </div>
-          <!-- <div class="form-group row">
-                        <label class="col-md-3 col-form-label font-weight-bold">Multi Color Options</label>
-                        <div class="col-md-9 col-form-label font-weight-bold">
-                            <div class="form-check">
-                                <input class="form-check-input" formControlName="multicolor" type="checkbox"
-                                    value="option1" id="checkbox1">
-                                <label class="form-check-label" for="checkbox1">
-                                    Available
-                                </label>
-                            </div>
-                        </div>
-                    </div> -->
+         
           <div class="form-group row">
             <label
               class="col-md-3 col-form-label font-weight-bold"
@@ -254,10 +230,7 @@
               >Color Options</label
             >
             <div class="col-md-9 d-flex w-full">
-              <!-- <ng-multiselect-dropdown [placeholder]="'Color Options'" [settings]="dropdownSettings"
-                                [data]="dropdownList" [formControlName]="'colorOption'"
-                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                            </ng-multiselect-dropdown> -->
+            
               <div class="grid lg:grid-cols-2 gap-x-2">
                 <color-swatches
                   class="m-2"
@@ -285,7 +258,6 @@
                   </div>
                 </div>
               </div>
-              <!-- [(ngModel)]="selectedItems" [ngModelOptions]="{standalone: true}" -->
             </div>
           </div>
           <div class="form-group row">
@@ -295,16 +267,8 @@
               >You can add Some tag to boost your product.</label
             >
             <div class="col-md-9">
-              <tag-input formControlName="tag" class="  border rounded"  ></tag-input>
-              <!-- <textarea
-                id="textarea-input"
-                (blur)="getTag($event)"
-                formControlName="tag"
-                name="textarea-input"
-                rows="9"
-                class="form-control"
-                placeholder="Content.."
-              ></textarea> -->
+              <tag-input [displayBy]="'name'" [formControlName]="'tags'"  class="  border rounded"  ></tag-input>
+             
             </div>
           </div>
         </form>
