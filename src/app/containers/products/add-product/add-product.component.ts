@@ -4,13 +4,15 @@ import { ProductService } from '../../../services/product.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { fake } from '../fake';
 import { ImagePickerConf } from 'ngp-image-picker';
+import { DatePipe } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.scss']
+  styleUrls: ['./add-product.component.scss'],
+  providers:[DatePipe]
 })
 export class AddProductComponent implements OnInit {
   categoryList: any;
@@ -29,7 +31,7 @@ export class AddProductComponent implements OnInit {
   a: any;
   itemsAsObjects: any;
   subImageList: any = [];
-    // colorOption = '#9c27b0'
+  // colorOption = '#9c27b0'
 
   imagePickerConf: ImagePickerConf = {
     borderRadius: '4px',
@@ -47,6 +49,7 @@ export class AddProductComponent implements OnInit {
     hideDeleteBtn: true,
     hideDownloadBtn: true
   };
+  myDate = new Date();
 
 
 
@@ -57,8 +60,7 @@ export class AddProductComponent implements OnInit {
     this.dropdownList = fake.details.attributes[0].color;
     this.categoryList = fake.details.category;
     this.selectedItems = [
-      // { item_id: 3, item_text: 'Pune' },
-      // { item_id: 4, item_text: 'Navsari' }
+
     ];
     this.dropdownSettings = {
       singleSelection: false,
@@ -68,23 +70,14 @@ export class AddProductComponent implements OnInit {
       allowSearchFilter: false
     };
 
-    // this.service.getCategory().subscribe((e:any)=>{
-    //   console.log(e);
-    //   this.categoryList = e['result']
 
-    // })
-    // this.service.getSubCategory().subscribe((e:any)=>{
-    //   console.log(e);
-    //   this.subcategoryList = e['result']
-
-    // })
 
     this.buildForm();
   }
 
   buildForm() {
     this.productForm = this.fb.group({
-      vendorId:['130380407'],
+      vendorId: ['130380407'],
       name: [''],
       description: [''],
       quantity: [''],
@@ -92,16 +85,16 @@ export class AddProductComponent implements OnInit {
       categoryId: [''],
       subCategoryId: [''],
       typeId: [''],
-      brand: [''],      
-      sizeAvailable: [''], 
+      brand: [''],
+      sizeAvailable: [''],
       mainImageUrl: [''],
       subImageUrl: [''],
-      colorOption: [''],
+      colorOption: new FormArray([]),
       tags: [''],
-      createdBy: [''],      
-      updatedBy: [''],      
-      createdOn: [''],      
-      updatedOn: [''],      
+      createdBy: [''],
+      updatedBy: [''],
+      createdOn: [this.myDate],
+      updatedOn: [this.myDate],
     });
   }
 
@@ -126,16 +119,33 @@ export class AddProductComponent implements OnInit {
     console.log(this.type);
   }
 
-  submit() {
-    let temp = this.productForm.get('tags').value
-    // JSON.stringify(temp)
-    console.log(temp);
-    
-    console.log(this.productForm.value)
-    this.service.addproducts(this.productForm.value).subscribe((e: any) => {
-      console.log(e);
+  async submit() {
 
+    if (this.productForm.invalid) {
+      return
+    }
+
+    let temp = this.productForm.get('tags').value
+    temp = temp.map(e => {
+      return e.name
     })
+
+    this.productForm.get('tags').setValue(temp)
+    let temp1 = this.productForm.get('sizeAvailable').value
+    temp1 = temp1.map(e => {
+      return e.name
+    })
+    this.productForm.get('sizeAvailable').setValue(temp1)
+
+   this.post(()=>{
+
+      console.log(this.productForm.value)
+      this.service.addproducts(this.productForm.value).subscribe((e: any) => {
+        console.log(e);
+      })
+    });
+
+   
   }
 
   test() {
@@ -149,23 +159,11 @@ export class AddProductComponent implements OnInit {
     console.log(items);
   }
 
-  
 
-  // getTag(event) {
-  //   var search = event.target.value;
-  //   var a = search.split(',')
-  //   this.productForm.get('tags').setValue(a)
-  //   console.log(this.productForm.controls.tags.value);    
-  // }
-
-  // getSize(event) {
-  //   var search = event.target.value;
-  //   var a = search.split(',')
-  //   JSON.stringify(a)
-  //   this.productForm.get('sizes').setValue(a)
-  // }
 
   changeComplete(event) {
+    console.log(event);
+
     const colorForm = this.fb.group({
       name: [event.color.hex, Validators.required],
     });
@@ -179,35 +177,47 @@ export class AddProductComponent implements OnInit {
 
   onImageChange(e) {
     console.log(e);
-    const files = e.target.files[0];     
-    let formParams = new FormData();
-    formParams.append('file', files )    
-    console.log(formParams);
-    
-    this.service.addImages(formParams).subscribe((e:any)=>{
-      console.log(e);
-  })
-}
-
-  subImage(e){
-    console.log(e);
     const files = e.target.files[0];
-    console.log(files);    
-    this.subImageList.push(files)       
-    
+    let formParams = new FormData();
+    formParams.append('file', files)
+    console.log(formParams);
+    this.service.addImages(formParams).subscribe((e: any) => {
+      this.productForm.get('mainImageUrl').setValue(e.filename);
+      console.log(this.productForm.controls.mainImageUrl.value);
+    })
   }
 
-  post(){
-    let formParams = new FormData();    
-    for(let img of this.subImageList){
-      formParams.append('file', img ) 
-    }
-      
-    console.log(formParams);
-     
-    this.service.addSubImages(formParams).subscribe((e:any)=>{
-      console.log(e);
-  })
+  subImage(e) {
+    console.log(e);
+    const files = e.target.files[0];
+    console.log(files);
+    this.subImageList.push(files)
+
+  }
+
+  async post(callBack?) {
+
+   
+
+      let formParams = new FormData();
+      for (let img of this.subImageList) {
+        formParams.append('file', img)
+      }
+
+      console.log(formParams);
+
+      this.service.addSubImages(formParams).subscribe((e: Array<any>) => {
+        let arrayImage = e.map((image: any) => image.filename)
+
+        this.productForm.get('subImageUrl').setValue(arrayImage)
+        console.log(this.productForm.controls.subImageUrl.value);
+        if (callBack)
+          callBack()
+    });
+
+    
+
+
   }
 
 

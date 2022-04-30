@@ -157,7 +157,7 @@
               >Size Available</label
             >
             <div class="col-md-9"> 
-              <tag-input  [formControlName]="'sizeAvailable'" class="  border rounded"  ></tag-input>
+              <tag-input  [displayBy]="'name'" [formControlName]="'sizeAvailable'" class="  border rounded"  ></tag-input>
              
             </div>
           </div>
@@ -222,6 +222,8 @@
               </div>
             </div>
           </div>
+
+          <button class="h-10 w-10 bg-red-500"  (click)="post()">Post </button>
          
           <div class="form-group row">
             <label
