@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { ImagePickerConf } from 'ngp-image-picker';
 import { async } from 'rxjs';
+import { environment } from '../../../environments/environment'
+
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
@@ -36,7 +38,8 @@ export class ImagesComponent implements OnInit {
      this.imageService.getImages().subscribe((e:any)=>{
       console.log(e);
       this.images = e.map(element => {
-        return "http://localhost:5001/images/" + `${element.filename}`
+        // return "http://localhost:5001/images/" + `${element.filename}`
+        return `${environment.ImageApi}` + `${element.filename}`
       });    
       console.log(this.images);            
       })

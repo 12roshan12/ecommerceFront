@@ -26,8 +26,8 @@ export class ProductService {
   getType() {
     return this._http.get(`${environment.MainApi}/type/getType`).pipe();
   }
-  getproducts() {
-    return this._http.get(`${environment.MainApi}/products/getproducts`).pipe();
+  getproductsbyVendor(vendorId:any) {
+    return this._http.get(`${environment.MainApi}/products/getProductbyVendorid/${vendorId}`).pipe();
   }
   getproductsbyid(id:any) {
     return this._http.get(`${environment.MainApi}/products/getProductbyid/`+id).pipe();
