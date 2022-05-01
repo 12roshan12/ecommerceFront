@@ -5,6 +5,10 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { fake } from '../fake';
 import { ImagePickerConf } from 'ngp-image-picker';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
+import { environment } from '../../../../environments/environment'
+
 
 
 
@@ -12,7 +16,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 export class AddProductComponent implements OnInit {
   categoryList: any;
@@ -30,7 +34,7 @@ export class AddProductComponent implements OnInit {
   b: any;
   a: any;
   itemsAsObjects: any;
-  subImageList: any = [];
+  subImageList: any = ['', '', ''];
   // colorOption = '#9c27b0'
 
   imagePickerConf: ImagePickerConf = {
@@ -39,6 +43,7 @@ export class AddProductComponent implements OnInit {
     width: '200px',
     height: '250px',
     hideDownloadBtn: true
+
 
   };
   config2: ImagePickerConf = {
@@ -50,37 +55,89 @@ export class AddProductComponent implements OnInit {
     hideDownloadBtn: true
   };
   myDate = new Date();
+  updateProducts: any;
+  mainImage: any = null
+  imageList = {
+    firstImage: '',
+    secondImage: '',
+    thirdImage: ''
+  }
+  I1Image: string;
+  I2Image: string;
+  I3Image: string;
+  isUpdateBoolean: boolean = false;
+  paramId:any = null;
 
 
 
-  constructor(private service: ProductService, private fb: FormBuilder) { }
+
+  constructor(private service: ProductService, private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.dropdownList = fake.details.attributes[0].color;
-    this.categoryList = fake.details.category;
-    this.selectedItems = [
-
-    ];
-    this.dropdownSettings = {
-      singleSelection: false,
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: false
-    };
-
-
-
     this.buildForm();
+
+
+    
+
+    this.service.getCategory().subscribe((e: any) => {
+      this.categoryList = e.result
+    })
+    this.service.getSubCategory().subscribe((e: any) => {
+      this.subcategoryList = e.result
+    })
+    this.service.getType().subscribe((e: any) => {
+      this.type = e.result
+    })
+
+    this.route.params.subscribe((e: any) => {
+      this.paramId = e.id
+    })
+
+    if (this.paramId) {
+
+      this.isUpdateBoolean = true
+
+      this.service.getproductsbyid(this.paramId).subscribe((e: any) => {
+        console.log(e);
+        const temp: Array<any> = JSON.parse(e.result.colorOption)
+        this.updateProducts = e.result
+        this.updateProducts.sizeAvailable = JSON.parse(this.updateProducts.sizeAvailable)
+        this.updateProducts.tags = JSON.parse(this.updateProducts.tags)
+        delete this.updateProducts.colorOption
+        this.productForm.patchValue(this.updateProducts)
+        this.mainImage = `${environment.ImageApi}` + `${this.productForm.controls.mainImageUrl.value}`
+        this.I1Image = `${environment.ImageApi}` + `${this.productForm.controls.I1ImageUrl.value}`
+        this.I2Image = `${environment.ImageApi}` + `${this.productForm.controls.I2ImageUrl.value}`
+        this.I3Image = `${environment.ImageApi}` + `${this.productForm.controls.I3ImageUrl.value}`
+
+        
+
+
+        temp.forEach((color) => {
+          const colorForm = this.fb.group({
+            name: [color.name, Validators.required],
+          });
+          this.colorOption.push(colorForm);
+        })
+
+
+
+        console.log(this.updateProducts);
+        console.log(this.productForm.value);
+
+      })
+    }
+
+
   }
 
   buildForm() {
     this.productForm = this.fb.group({
       vendorId: ['130380407'],
-      name: [''],
-      description: [''],
-      quantity: [''],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      quantity: ['', Validators.required],
       price: [''],
       categoryId: [''],
       subCategoryId: [''],
@@ -88,7 +145,9 @@ export class AddProductComponent implements OnInit {
       brand: [''],
       sizeAvailable: [''],
       mainImageUrl: [''],
-      subImageUrl: [''],
+      I1ImageUrl: [''],
+      I2ImageUrl: [''],
+      I3ImageUrl: [''],
       colorOption: new FormArray([]),
       tags: [''],
       createdBy: [''],
@@ -106,16 +165,14 @@ export class AddProductComponent implements OnInit {
   getSubCategory(event) {
     console.log(event.target.value);
     this.subcategoryDisabled = false
-    this.subcategoryList = fake.details.subCategory;
-    this.subcategoryList = this.subcategoryList.filter(e => e.categoryId === Number(event.target.value))
+    this.subcategoryList = this.subcategoryList.filter(e => e.category === Number(event.target.value))
     console.log(this.subcategoryList);
   }
 
   getType(event) {
     console.log(event.target.value);
     this.typeDisabled = false
-    this.type = fake.details.type
-    this.type = this.type.filter(e => e.subCategoryId === Number(event.target.value))
+    this.type = this.type.filter(e => e.subcategory === Number(event.target.value))
     console.log(this.type);
   }
 
@@ -124,28 +181,19 @@ export class AddProductComponent implements OnInit {
     if (this.productForm.invalid) {
       return
     }
-
-    let temp = this.productForm.get('tags').value
-    temp = temp.map(e => {
-      return e.name
-    })
-
-    this.productForm.get('tags').setValue(temp)
-    let temp1 = this.productForm.get('sizeAvailable').value
-    temp1 = temp1.map(e => {
-      return e.name
-    })
-    this.productForm.get('sizeAvailable').setValue(temp1)
-
-   this.post(()=>{
-
       console.log(this.productForm.value)
+     
+     if(!this.isUpdateBoolean){
       this.service.addproducts(this.productForm.value).subscribe((e: any) => {
         console.log(e);
-      })
+     
     });
-
-   
+  }
+  else{
+    this.service.updateProducts(this.productForm.value,this.paramId).subscribe((e: any) => {
+      console.log(e);   
+  });
+  }
   }
 
   test() {
@@ -187,38 +235,52 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  subImage(e) {
+  subImage(e, i) {
+
     console.log(e);
     const files = e.target.files[0];
-    console.log(files);
-    this.subImageList.push(files)
+    let formParams = new FormData();
+    formParams.append('file', files)
+    console.log(formParams);
+    this.service.addSubImages(formParams,i).subscribe((e: any) => {
+      this.productForm.get(`I${i}ImageUrl`).setValue(e.filename);
+      console.log(this.productForm.controls.I1ImageUrl.value);
+    })
+    // console.log(e,i);
+    // const files = e.target.files[0];
+    // switch (i) {
+    //   case 0:
+    //     this.imageList.firstImage = files
+    //     break;
+    //   case 1:
+    //     this.imageList.secondImage = files
+    //     break
+    //   case 2:
+    //     this.imageList.thirdImage = files
+    // }
 
+    // console.log(this.imageList);
+    // console.log();    
   }
 
-  async post(callBack?) {
+  // async post(callBack?) {
 
-   
+  //   let formParams = new FormData();   
+  //   Object.keys(this.imageList).forEach((e:any)=>{
+  //     formParams.append('file', this.imageList[e])
+  //   })
 
-      let formParams = new FormData();
-      for (let img of this.subImageList) {
-        formParams.append('file', img)
-      }
+  //   console.log(formParams);
 
-      console.log(formParams);
+  //   this.service.addSubImages(formParams,1).subscribe((e: Array<any>) => {
+  //     let arrayImage = e.map((image: any) => image.filename)
 
-      this.service.addSubImages(formParams).subscribe((e: Array<any>) => {
-        let arrayImage = e.map((image: any) => image.filename)
-
-        this.productForm.get('subImageUrl').setValue(arrayImage)
-        console.log(this.productForm.controls.subImageUrl.value);
-        if (callBack)
-          callBack()
-    });
-
-    
-
-
-  }
+  //     this.productForm.get('subImageUrl').setValue(arrayImage)
+  //     console.log(this.productForm.controls.subImageUrl.value);
+  //     if (callBack)
+  //       callBack()
+  //   });
+  // }
 
 
 }

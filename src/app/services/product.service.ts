@@ -22,25 +22,37 @@ export class ProductService {
   getSubCategory() {
     return this._http.get(`${environment.MainApi}/subcategory/getsubcategory`).pipe();
   }
+
+  getType() {
+    return this._http.get(`${environment.MainApi}/type/getType`).pipe();
+  }
   getproducts() {
     return this._http.get(`${environment.MainApi}/products/getproducts`).pipe();
+  }
+  getproductsbyid(id:any) {
+    return this._http.get(`${environment.MainApi}/products/getProductbyid/`+id).pipe();
   }
 
   addproducts(body:any): Observable<any> {
     return this._http.post<any>(`${environment.MainApi}/products/addproducts`,body,{'headers':this.header}).pipe();
   }
 
+  updateProducts(body:any, id:any): Observable<any> {
+    return this._http.put<any>(`${environment.MainApi}/products/updateproducts/${id}`,body,{'headers':this.header}).pipe();
+  }
+
   addImages(image:any){ 
      return this._http.post<any>(`${environment.MainApi}/api/upload`,image).pipe();
   }
-  addSubImages(image:any){ 
-    return this._http.post<any>(`${environment.MainApi}/api/upload/multiple`,image).pipe();
+  addSubImages(image:any,i){ 
+    return this._http.post<any>(`${environment.MainApi}/api/upload${i}`,image).pipe();
  }
 
   getImages(){
-    return this._http.get<any>(`${environment.MainApi}/images/getimages`).pipe();
-    
+    return this._http.get<any>(`${environment.MainApi}/images/getimages`).pipe();    
   }
+
+
 
 
 }

@@ -3,258 +3,137 @@
     <div class="card">
       <div class="card-header">
         <strong>Add New Product</strong>
-        <button
-          class="btn btn-danger pull-right"
-          [routerLink]="['/products']"
-          routerLinkActive="router-link-active"
-        >
+        <button class="btn btn-danger pull-right" [routerLink]="['/products']" routerLinkActive="router-link-active">
           Cancel
         </button>
       </div>
       <div class="card-body">
         <form [formGroup]="productForm" class="form-horizontal">
           <div class="form-group row">
-            <label
-              class="col-md-3 font-weight-bold col-form-label font-weight-bold"
-              for="text-input"
-              >Product Name</label
-            >
+            <label class="col-md-3 font-weight-bold col-form-label font-weight-bold" for="text-input">Product
+              Name</label>
             <div class="col-md-9">
-              <input
-                type="text"
-                id="text-input"
-                [formControlName]="'name'"
-                name="text-input"
-                class="form-control"
-                placeholder="Text"
-              />
-              
+              <input type="text" id="text-input" [formControlName]="'name'" name="text-input" class="form-control"
+                placeholder="Text" />
+
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="text-input"
-              >Quantity</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Quantity</label>
             <div class="col-md-9">
-              <input
-                type="number"
-                id="text-input"
-                [formControlName]="'quantity'"
-                name="text-input"
-                class="form-control"
-                placeholder="Quantity available"
-                autocomplete="off"
-              />
+              <input type="number" id="text-input" [formControlName]="'quantity'" name="text-input" class="form-control"
+                placeholder="Quantity available" autocomplete="off" />
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="text-input"
-              >Price</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Price</label>
             <div class="col-md-9">
-              <input
-                type="number"
-                id="text-input"
-                [formControlName]="'price'"
-                name="text-input"
-                class="form-control"
-                placeholder="price"
-                autocomplete="off"
-              />
+              <input type="number" id="text-input" [formControlName]="'price'" name="text-input" class="form-control"
+                placeholder="price" autocomplete="off" />
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="select1"
-              >Product Category</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="select1">Product Category</label>
             <div class="col-md-9">
-              <select
-                id="select1"
-                name="select1"
-                (change)="getSubCategory($event)"
-                [formControlName]="'categoryId'"
-                class="form-control"
-              >
+              <select id="select1" name="select1" (change)="getSubCategory($event)" [formControlName]="'categoryId'"
+                class="form-control">
                 <option *ngFor="let data of categoryList" [value]="data.id">
-                  {{ data.value }}
+                  {{ data.categoryName }}
                 </option>
               </select>
             </div>
           </div>
-          <div
-            class="form-group row"
-            *ngIf="productForm.controls.categoryId.value"
-          >
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="select1"
-              >Sub Category</label
-            >
+          <div class="form-group row" *ngIf="productForm.controls.categoryId.value">
+            <label class="col-md-3 col-form-label font-weight-bold" for="select1">Sub Category</label>
             <div class="col-md-9">
-              <select
-                (change)="getType($event)"
-                id="select1"
-                name="select1"
-                [formControlName]="'subCategoryId'"
-                class="form-control"
-              >
+              <select (change)="getType($event)" id="select1" name="select1" [formControlName]="'subCategoryId'"
+                class="form-control">
                 <option *ngFor="let data of subcategoryList" [value]="data.id">
-                  {{ data.value }}
+                  {{ data.name }}
                 </option>
               </select>
             </div>
           </div>
-          <div
-            class="form-group row"
-            *ngIf="productForm.controls.subCategoryId.value"
-          >
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="select1"
-              >Product Type</label
-            >
+          <div class="form-group row" *ngIf="productForm.controls.subCategoryId.value">
+            <label class="col-md-3 col-form-label font-weight-bold" for="select1">Product Type</label>
             <div class="col-md-9">
-              <select
-                id="select1"
-                name="select1"
-                [formControlName]="'typeId'"
-                class="form-control"
-              >
+              <select id="select1" name="select1" [formControlName]="'typeId'" class="form-control">
                 <option *ngFor="let data of type" [value]="data.id">
-                  {{ data.value }}
+                  {{ data.name }}
                 </option>
               </select>
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="text-input"
-              >Brand</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Brand</label>
             <div class="col-md-9">
-              <input
-                type="text"
-                id="text-input"
-                [formControlName]="'brand'"
-                name="text-input"
-                class="form-control"
-                placeholder="Enter Brand"
-                autocomplete="off"
-              />
+              <input type="text" id="text-input" [formControlName]="'brand'" name="text-input" class="form-control"
+                placeholder="Enter Brand" autocomplete="off" />
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="text-input"
-              >Size Available</label
-            >
-            <div class="col-md-9"> 
-              <tag-input  [displayBy]="'name'" [formControlName]="'sizeAvailable'" class="  border rounded"  ></tag-input>
-             
+            <label class="col-md-3 col-form-label font-weight-bold" for="text-input">Size Available</label>
+            <div class="col-md-9">
+              <tag-input [displayBy]="'name'" [formControlName]="'sizeAvailable'" class="  border rounded"></tag-input>
+
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="textarea-input"
-              >Product Description</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="textarea-input">Product Description</label>
             <div class="col-md-9">
-              <textarea
-                id="textarea-input"
-                [formControlName]="'description'"
-                name="textarea-input"
-                rows="9"
-                class="form-control"
-                placeholder="Content.."
-              ></textarea>
+              <textarea id="textarea-input" [formControlName]="'description'" name="textarea-input" rows="9"
+                class="form-control" placeholder="Content.."></textarea>
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="select1"
-              >Main Product Image</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="select1">Main Product Image</label>
             <div class="col-md-9">
-              <ngp-image-picker
-                [_config]="imagePickerConf"
-                (change)="onImageChange($event)"
-              >
+              <ngp-image-picker [_config]="imagePickerConf" (change)="onImageChange($event)"
+                [_imageSrc]="mainImage ? mainImage : '' ">
               </ngp-image-picker>
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="select1"
-              >Product Sub Image</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="select1">Product Sub Image</label>
             <div class="d-flex flex-row row-md-3 row-sm-2">
               <div class="p-2">
-                <ngp-image-picker
-                  [_config]="config2"
-                  (change)="subImage($event)"
-                >
+                <ngp-image-picker [_config]="config2" (change)="subImage($event,1)"
+                  [_imageSrc]="I1Image ? I1Image : '' ">
                 </ngp-image-picker>
               </div>
               <div class="p-2">
-                <ngp-image-picker
-                  [_config]="config2"
-                  (change)="subImage($event)"
-                >
+                <ngp-image-picker [_config]="config2" (change)="subImage($event,2)"
+                  [_imageSrc]="I2Image ? I2Image : '' ">
                 </ngp-image-picker>
               </div>
               <div class="p-2">
-                <ngp-image-picker
-                  [_config]="config2"
-                  (change)="subImage($event)"
-                >
+                <ngp-image-picker [_config]="config2" (change)="subImage($event,3)"
+                  [_imageSrc]="I3Image ? I3Image : '' ">
                 </ngp-image-picker>
               </div>
             </div>
           </div>
+          <!-- <button class="bg-red-400" (click)="post()" >Pos</button> -->
 
-         
+
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="select1"
-              >Color Options</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="select1">Color Options</label>
             <div class="col-md-9 d-flex w-full">
-            
+
               <div class="grid lg:grid-cols-2 gap-x-2">
-                <color-swatches
-                  class="m-2"
-                  [color]=""
-                  (onChangeComplete)="changeComplete($event)"
-                >
+                <color-swatches class="m-2" [color]="" (onChangeComplete)="changeComplete($event)">
                 </color-swatches>
                 <div class="w-full h-[200px]  overflow-auto ">
                   <label *ngIf="colorOption.length >= 1" class="font-weight-bold ">
-                    Selected Color Options</label
-                  >
+                    Selected Color Options</label>
                   <br />
-                  <div
-                    *ngFor="let color of productForm.controls.colorOption.value ; let i = index"  
-                    class="inline-flex "
-                  >
-                    <div
-                      [ngStyle]="{ 'background-color': color.name }"
-                      class="rounded-full border-1 border-black w-8 h-8 m-2"
-                    ></div>
-                
+                  <div *ngFor="let color of productForm.controls.colorOption.value ; let i = index"
+                    class="inline-flex ">
+                    <div [ngStyle]="{ 'background-color': color.name }"
+                      class="rounded-full border-1 border-black w-8 h-8 m-2"></div>
+
                     <span class="relative inline-block " (click)="removeColor(i)">
-                      <img src="assets/img/svgicons/cross.svg" class="w-4 h-4">                      
+                      <img src="assets/img/svgicons/cross.svg" class="w-4 h-4">
                     </span>
                   </div>
                 </div>
@@ -262,35 +141,24 @@
             </div>
           </div>
           <div class="form-group row">
-            <label
-              class="col-md-3 col-form-label font-weight-bold"
-              for="select1"
-              >You can add Some tag to boost your product.</label
-            >
+            <label class="col-md-3 col-form-label font-weight-bold" for="select1">You can add Some tag to boost your
+              product.</label>
             <div class="col-md-9">
-              <tag-input [displayBy]="'name'" [formControlName]="'tags'"  class="  border rounded"  ></tag-input>
-             
+              <tag-input [displayBy]="'name'" [formControlName]="'tags'" class="  border rounded"></tag-input>
+
             </div>
           </div>
         </form>
       </div>
-      <div
-        class="card-footer d-flex justify-content-end"
-        style="column-gap: 8px"
-      >
-        <button
-          type="submit"
-          class="btn btn-sm bg-blue-400 hover:bg-blue-700"
-          (click)="submit()"
-        >
+      <div class="card-footer d-flex justify-content-end" style="column-gap: 8px">
+        <button *ngIf="!isUpdateBoolean" type="submit" class="btn btn-sm bg-blue-400 hover:bg-blue-700" (click)="submit()">
           <i class="fa fa-dot-circle-o"></i> Add Another
         </button>
-        <button
-          type="reset"
-          [routerLink]="['/products']"
-          routerLinkActive="router-link-active"
-          class="btn btn-sm bg-red-400 hover:bg-red-700"
-        >
+        <button *ngIf="isUpdateBoolean" type="submit" class="btn btn-sm bg-blue-400 hover:bg-blue-700" (click)="submit()">
+          <i class="fa fa-dot-circle-o"></i> Update
+        </button>
+        <button type="reset" [routerLink]="['/products']" routerLinkActive="router-link-active"
+          class="btn btn-sm bg-red-400 hover:bg-red-700">
           <i class="fa fa-ban"></i> Cancel
         </button>
       </div>

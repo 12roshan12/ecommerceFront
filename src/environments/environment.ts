@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  MainApi :"http://localhost:5001"
+  MainApi :"http://localhost:5001",
+  ImageApi:"http://localhost:5001/images/"
 };
 
 /*
