@@ -25,10 +25,10 @@
             <td>{{data.price}}</td>
             <td>{{data.quantity}}</td>
             <td>
-              <img [src]="imageSrc" class="w-38 h-30" alt="Product Image">
+              <img [src]="data.mainImageUrl" class="w-38 h-30 img-fluid" alt="Product Image">
             
             </td>
-            <td > <div class="flex justify-center items-center  gap-x-2 "> <i matTooltip="Edit" (click)="update(data.id)" class="fa-solid fa-marker fa-2x"></i> <i matTooltip="Delete" class="fa-solid fa-trash-can fa-2x"></i> </div> </td>
+            <td > <div class="flex justify-center items-center  gap-x-2 "> <i matTooltip="Edit"   class="fa-solid fa-marker fa-2x"></i> <i matTooltip="Delete" (click)="delete(data.id)" class="fa-solid fa-trash-can fa-2x"></i> </div> </td>
           </tr>
         </tbody>
       </table>
@@ -36,8 +36,5 @@
     </div>
   </div>
 
-  <div *ngFor="let data of imageSrc">
-  <img [src]="data" class="w-38 h-30" alt="Product Image">
-  </div>
 
    

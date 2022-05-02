@@ -52,6 +52,10 @@ export class ProductService {
     return this._http.get<any>(`${environment.MainApi}/images/getimages`).pipe();    
   }
 
+  deleteProduct(id:any){
+    return this._http.delete<any>(`${environment.MainApi}/products/deleteproducts/${id}`).pipe();
+  }
+
 
 
 

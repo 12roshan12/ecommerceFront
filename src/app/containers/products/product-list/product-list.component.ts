@@ -22,15 +22,13 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
 
     this.products.getproductsbyVendor(130380407).subscribe((e: any) => {
-      this.productList = e['result']
-      console.log(this.productList);
-      this.imageSrc = this.productList.map((e) =>{
-        return `${environment.ImageApi}` + `${e.mainImageUrl}`
-      })
-      console.log(this.imageSrc);
+      this.productList =  e.result.map(element => {
+        const temp = element
+        temp.mainImageUrl = `${environment.ImageApi}` + `${element.mainImageUrl}` 
+        return temp
+      });
+      console.log(this.productList);      
     })
-
-    // this.productList = fake.products
 
     this.dtOptions = {
       pagingType: 'full_numbers'
@@ -41,5 +39,15 @@ export class ProductListComponent implements OnInit {
     console.log(event);   
     this.router.navigate(['/products/product-add/' , event ])
 
+  }
+
+  delete(event){
+    console.log(event);
+    this.products.deleteProduct(event).subscribe((e:any)=>{
+      console.log(e); 
+      this.ngOnInit()  ;   
+    })
+
+    
   }
 }
