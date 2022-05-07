@@ -3,6 +3,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { fake } from '../fake';
 import { environment } from '../../../../environments/environment'
 import { Route, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 
@@ -43,11 +44,25 @@ export class ProductListComponent implements OnInit {
 
   delete(event){
     console.log(event);
-    this.products.deleteProduct(event).subscribe((e:any)=>{
-      console.log(e); 
-      this.ngOnInit()  ;   
-    })
 
+    Swal.fire({
+      title: 'Do you want to Delete this Product?',
+      showDenyButton: true,
+      confirmButtonText: 'Delete',
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.products.deleteProduct(event).subscribe((e:any)=>{
+          console.log(e); 
+          Swal.fire('Product Deleted', '', 'info')
+          this.ngOnInit()  ;   
+        })  
+      } else if (result.isDenied) {
+        Swal.fire('Delete Cancelled', '', 'info')
+      }
+    })
     
+    
+  
   }
 }

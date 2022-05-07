@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { environment } from '../../../../environments/environment'
+import Swal from 'sweetalert2';
 
 
 
@@ -179,19 +180,36 @@ export class AddProductComponent implements OnInit {
   async submit() {
 
     if (this.productForm.invalid) {
+      Swal.fire('Alert', 'Fill From Correctly', 'warning');
       return
     }
       console.log(this.productForm.value)
      
      if(!this.isUpdateBoolean){
       this.service.addproducts(this.productForm.value).subscribe((e: any) => {
-        console.log(e);
+        if(e.result){
+          Swal.fire('Success', `${e.result.message}`, 'success');
+          console.log(e.result);          
+         }
+  
+         else if(e.error){
+           console.log(e.error);
+           
+         }
      
     });
   }
   else{
     this.service.updateProducts(this.productForm.value,this.paramId).subscribe((e: any) => {
-      console.log(e);   
+       if(e.result){
+        console.log(e.result);
+        
+       }
+
+       else if(e.error){
+         console.log(e.error);
+         
+       }
   });
   }
   }
@@ -246,41 +264,9 @@ export class AddProductComponent implements OnInit {
       this.productForm.get(`I${i}ImageUrl`).setValue(e.filename);
       console.log(this.productForm.controls.I1ImageUrl.value);
     })
-    // console.log(e,i);
-    // const files = e.target.files[0];
-    // switch (i) {
-    //   case 0:
-    //     this.imageList.firstImage = files
-    //     break;
-    //   case 1:
-    //     this.imageList.secondImage = files
-    //     break
-    //   case 2:
-    //     this.imageList.thirdImage = files
-    // }
-
-    // console.log(this.imageList);
-    // console.log();    
+     
   }
 
-  // async post(callBack?) {
-
-  //   let formParams = new FormData();   
-  //   Object.keys(this.imageList).forEach((e:any)=>{
-  //     formParams.append('file', this.imageList[e])
-  //   })
-
-  //   console.log(formParams);
-
-  //   this.service.addSubImages(formParams,1).subscribe((e: Array<any>) => {
-  //     let arrayImage = e.map((image: any) => image.filename)
-
-  //     this.productForm.get('subImageUrl').setValue(arrayImage)
-  //     console.log(this.productForm.controls.subImageUrl.value);
-  //     if (callBack)
-  //       callBack()
-  //   });
-  // }
 
 
 }

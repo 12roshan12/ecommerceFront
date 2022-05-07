@@ -21,8 +21,8 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
+import { LoginComponent } from '../app/containers/auth/login/login.component';
+import { RegisterComponent } from '../app/containers/auth/register/register.component';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 
@@ -64,6 +64,8 @@ import { NgpImagePickerModule } from 'ngp-image-picker';
 import { ColorSwatchesModule } from 'ngx-color/swatches';
 import { TagInputModule } from 'ngx-chips';
 import { ImagesComponent } from './containers/images/images.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 
 @NgModule({
   imports: [
@@ -78,6 +80,7 @@ import { ImagesComponent } from './containers/images/images.component';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    SweetAlert2Module.forRoot(),
     ChartsModule,
     IconModule,
     IconSetModule.forRoot(),
@@ -112,7 +115,9 @@ import { ImagesComponent } from './containers/images/images.component';
     DashboardComponent,
     AddProductComponent,
     ProductListComponent,
-    ImagesComponent
+    ImagesComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   providers: [
     {
