@@ -23,6 +23,7 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from '../app/containers/auth/login/login.component';
 import { RegisterComponent } from '../app/containers/auth/register/register.component';
+import { ForgotPasswordComponent } from '../app/containers/auth/forgot-password/forgot-password.component';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 
@@ -67,6 +68,7 @@ import { ImagesComponent } from './containers/images/images.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -95,7 +97,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     NgpImagePickerModule,
     ColorSwatchesModule,
     MatTooltipModule,
-    TagInputModule
+    TagInputModule,
+   
 
   ],
   declarations: [
@@ -117,7 +120,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ProductListComponent,
     ImagesComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent
   ],
   providers: [
     {

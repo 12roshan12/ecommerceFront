@@ -19,6 +19,7 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from '../app/containers/auth/login/login.component';
 import { RegisterComponent } from '../app/containers/auth/register/register.component';
+import { ForgotPasswordComponent } from '../app/containers/auth/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,13 @@ export const routes: Routes = [
     component: RegisterComponent,
     data: {
       title: 'Register Page'
+    }
+  },
+  {
+    path: 'reset-password',
+    component: ForgotPasswordComponent,
+    data: {
+      title: 'Reset Password Page'
     }
   },
   {
