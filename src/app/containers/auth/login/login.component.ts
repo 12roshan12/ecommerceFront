@@ -11,51 +11,55 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm:FormGroup
+  loginForm: FormGroup
 
-  constructor(private _formBuilder:FormBuilder,private _authService:AuthService,private router:Router) { }
+  constructor(private _formBuilder: FormBuilder, private _authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.formBuilder()
   }
 
-  formBuilder(){
+  formBuilder() {
     this.loginForm = this._formBuilder.group({
-      vendorId:['',Validators.required],
-      password:['',Validators.required]
+      vendorId: ['', Validators.required],
+      password: ['', Validators.required]
     })
   }
 
-  login(){
+  login() {
 
-    if(this.loginForm.invalid){
+    if (this.loginForm.invalid) {
       Swal.fire('Error', 'Invalid Form Details', 'error');
       return
     }
 
-    
+
 
     this._authService.login(this.loginForm.value).subscribe(
-      
-      (response:any)=>{
 
-      console.log(response);
-        if(response.result.length <1 )
-        {
-        Swal.fire('Error', "Invalid Username or Password", 'error');  
+      (response: any) => {
+
+
+        if (response.status == 200) {
+          Swal.fire('Success', `${response.message}`, 'success');
+          this.router.navigate(['/dashboard'])
         }
-        else{
-          Swal.fire('Success', 'Login Success', 'success');  
-          this.router.navigate(['/dashboard'])  
+        else {
+          Swal.fire('Login Error', `${response.message}`, 'error');
+
         }
 
-       
-    },
-    (error)=>{
-      Swal.fire('Error', 'Username or Password doesnot match', 'error');  
-      this.loginForm.reset()
-      console.log(error);      
-  })
+
+      },
+      (error) => {
+        console.log(error);
+        
+        Swal.fire('Error', `${error.error.error}`, 'error');
+        this.loginForm.reset()
+        console.log(error);
+      })
   }
 
 }
+
+
