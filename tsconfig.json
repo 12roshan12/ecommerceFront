@@ -12,6 +12,9 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
+    "rootDir": "./src" ,
+    /* Experimental Options */
+    /* Advanced Options */
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true, 
     "moduleResolution": "node",    

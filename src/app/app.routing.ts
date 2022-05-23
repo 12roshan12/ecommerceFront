@@ -20,13 +20,19 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from '../app/containers/auth/login/login.component';
 import { RegisterComponent } from '../app/containers/auth/register/register.component';
 import { ForgotPasswordComponent } from '../app/containers/auth/forgot-password/forgot-password.component';
+import { AuthGuard } from 'src/app/containers/auth/auth.guard'
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  },
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+
+  // Redirect signed in user to the '/example'
+  //
+  // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
+  // path. Below is another redirection for that path to redirect the user to the desired
+  // location. This is a small convenience to keep all main routes together here on this file.
+  { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboard' },
+  
+
   {
     path: '404',
     component: P404Component,
@@ -64,6 +70,8 @@ export const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     component: DefaultLayoutComponent,
     data: {
       title: 'Home'
@@ -71,47 +79,47 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component:DashboardComponent ,
+        component: DashboardComponent,
         data: {
           title: 'Dashboard'
         }
 
-      },  
+      },
       {
         path: 'products',
         component: ProductsComponent,
         data: {
           title: 'Products'
         },
-        children:[
+        children: [
           {
-            path:'product-add',
-            component:AddProductComponent,
+            path: 'product-add',
+            component: AddProductComponent,
             data: {
               title: 'Product Add'
             },
-            
+
           },
           {
-            path:'product-add/:id',
-            component:AddProductComponent,
+            path: 'product-add/:id',
+            component: AddProductComponent,
             data: {
               title: 'Product Add'
             },
-            
+
           },
           {
-            path:'',
-            component:ProductListComponent,
+            path: '',
+            component: ProductListComponent,
             data: {
               title: 'Product List'
             },
-            
+
           },
         ]
 
 
-      },      
+      },
       {
         path: 'orders',
         component: OrdersComponent,
@@ -161,10 +169,10 @@ export const routes: Routes = [
 
       },
       {
-        path:'images',
-        component:ImagesComponent,
-        data:{
-          title:'images'
+        path: 'images',
+        component: ImagesComponent,
+        data: {
+          title: 'images'
         }
       }
     ]
@@ -173,7 +181,8 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

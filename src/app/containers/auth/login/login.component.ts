@@ -39,14 +39,16 @@ export class LoginComponent implements OnInit {
 
       (response: any) => {
 
+        console.log(response);
+        
 
         if (response.status == 200) {
           Swal.fire('Success', `${response.message}`, 'success');
+          sessionStorage.setItem('accessToken',response.access_token);
           this.router.navigate(['/dashboard'])
         }
         else {
           Swal.fire('Login Error', `${response.message}`, 'error');
-
         }
 
 
