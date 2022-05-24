@@ -60,13 +60,14 @@ import { DataTablesModule } from "angular-datatables";
 import { AddProductComponent } from './containers/products/add-product/add-product.component';
 import { ProductListComponent } from './containers/products/product-list/product-list.component';
 import { ProductService } from './services/product.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgpImagePickerModule } from 'ngp-image-picker';
 import { ColorSwatchesModule } from 'ngx-color/swatches';
 import { TagInputModule } from 'ngx-chips';
 import { ImagesComponent } from './containers/images/images.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { AuthInterceptorService } from 'src/app/containers/auth/auth.interceptor'
 
 
 
@@ -132,7 +133,12 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
       useClass: HashLocationStrategy
     },
     IconSetService,
-    ProductService
+    ProductService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+     },
   ],
   bootstrap: [ AppComponent ]
 })

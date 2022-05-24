@@ -81,4 +81,8 @@ export class AuthService {
 
   }
 
+  getAuthToken(){
+    return sessionStorage.getItem('accessToken')
+  }
+
 }
