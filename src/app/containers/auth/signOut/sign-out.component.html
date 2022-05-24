@@ -1,34 +1,27 @@
-<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
-    <div class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card">
-        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
-            <!-- Logo -->
-            <div class="w-12 mx-auto">
-                <!-- <img src="assets/images/logo/logo.svg"> -->
-                image
-            </div>
+<div class="bg-white min-h-screen flex flex-col">
+    <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center p-6">
+        <div class="d-inline p-4 border border-primary rounded shadow bg-white mx-auto">
 
-            <!-- Title -->
-            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight text-center">You have signed out!</div>
-            <div class="flex justify-center mt-0.5 font-medium">
-                <!-- Redirect countdown -->
-                <ng-container *ngIf="countdown > 0">
+            <div class=" text-center">
+                <div *ngIf="countdown > 0">
                     Redirecting in {{countdown | i18nPlural: countdownMapping }}
-                </ng-container>
+                </div>
 
                 <!-- Redirect message -->
-                <ng-container *ngIf="countdown === 0">
-                    You are now being redirected!
-                </ng-container>
+                <div *ngIf="countdown === 0">
+                    You are now being redirected to our login page.
+                </div>
+
             </div>
 
-            <!-- Form footer -->
-            <div class="mt-8 text-md font-medium text-secondary text-center">
+
+            <div class="mt-8 text-md font-medium text-center">
                 <span>Go to</span>
-                <a
-                    class="ml-1 text-primary-500 hover:underline"
-                    [routerLink]="['/login']">sign in
+                <a class="ml-1 text-primary hover:underline" [routerLink]="['/login']">sign in
                 </a>
             </div>
+
         </div>
+
     </div>
 </div>
