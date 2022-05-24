@@ -18,11 +18,22 @@ export class AuthGuard implements CanActivate {
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean | Promise<boolean> {
+            
+           console.log(route.queryParams);
+           
+            console.log("state url is" + state.url);
+            
+            
+            
         var isAuthenticated = this.authService.getAuthStatus();
-        Swal.fire('','Please Login First','error')
         if (!isAuthenticated) {
+             Swal.fire('','Please Login First','error')
             this.router.navigate(['/login']);
         }
+        // else{
+        //     this.router.navigate([`${state.url}`]);
+        // }
+        
         return isAuthenticated;
     }
 }

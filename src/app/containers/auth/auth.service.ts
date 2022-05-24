@@ -64,11 +64,11 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('accessToken');
   }
 
   public get loggedIn(): boolean {
-    return (localStorage.getItem('access_token') !== null);
+    return (localStorage.getItem('accessToken') !== null);
   }
 
   register(body: any): Observable<any> {
@@ -76,7 +76,7 @@ export class AuthService {
   }
 
   getAuthStatus(){
-    if (sessionStorage.getItem('access_token') != null) return true
+    if (sessionStorage.getItem('accessToken') != null) return true
     else return false
 
   }
