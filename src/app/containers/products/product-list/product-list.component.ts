@@ -42,6 +42,12 @@ export class ProductListComponent implements OnInit {
 
   }
 
+  edit(event){
+    console.log(event);
+    
+    this.router.navigate(['/products/product-add/',event])
+  }
+
   delete(event){
     console.log(event);
 
