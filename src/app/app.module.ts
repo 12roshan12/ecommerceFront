@@ -22,6 +22,7 @@ import { DefaultLayoutComponent } from './containers';
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from '../app/containers/auth/login/login.component';
+import { AuthSignOutComponent } from '../app/containers/auth/signOut/sign-out.component';
 import { RegisterComponent } from '../app/containers/auth/register/register.component';
 import { ForgotPasswordComponent } from '../app/containers/auth/forgot-password/forgot-password.component';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
@@ -66,6 +67,7 @@ import { ColorSwatchesModule } from 'ngx-color/swatches';
 import { TagInputModule } from 'ngx-chips';
 import { ImagesComponent } from './containers/images/images.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 
 
 
@@ -120,6 +122,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ProductListComponent,
     ImagesComponent,
     LoginComponent,
+    AuthSignOutComponent,
     RegisterComponent,
     ForgotPasswordComponent
   ],

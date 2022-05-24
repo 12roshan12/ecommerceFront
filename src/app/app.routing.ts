@@ -21,6 +21,8 @@ import { LoginComponent } from '../app/containers/auth/login/login.component';
 import { RegisterComponent } from '../app/containers/auth/register/register.component';
 import { ForgotPasswordComponent } from '../app/containers/auth/forgot-password/forgot-password.component';
 import { AuthGuard } from 'src/app/containers/auth/auth.guard'
+import { AuthSignOutComponent } from '../app/containers/auth/signOut/sign-out.component';
+
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
@@ -54,6 +56,13 @@ export const routes: Routes = [
     component: RegisterComponent,
     data: {
       title: 'Register Page'
+    }
+  },
+  {
+    path: 'logout',
+    component: AuthSignOutComponent,
+    data: {
+      title: 'Logout Page'
     }
   },
   {

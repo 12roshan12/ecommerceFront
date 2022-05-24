@@ -64,7 +64,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('accessToken');
+    sessionStorage.removeItem('accessToken');
   }
 
   public get loggedIn(): boolean {
