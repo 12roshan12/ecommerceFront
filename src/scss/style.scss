@@ -10,6 +10,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
 
 
 .ng2-tag-input{

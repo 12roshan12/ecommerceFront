@@ -68,6 +68,8 @@ import { TagInputModule } from 'ngx-chips';
 import { ImagesComponent } from './containers/images/images.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AuthInterceptorService } from 'src/app/containers/auth/auth.interceptor'
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -101,6 +103,8 @@ import { AuthInterceptorService } from 'src/app/containers/auth/auth.interceptor
     ColorSwatchesModule,
     MatTooltipModule,
     TagInputModule,
+    NgxDatatableModule,
+    MatIconModule
    
 
   ],

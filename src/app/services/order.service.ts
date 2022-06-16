@@ -9,61 +9,62 @@ import { environment } from '../../environments/environment';
 })
 export class Orderservice {
 
-   header = new HttpHeaders({
+  header = new HttpHeaders({
     "Content-Type": "application/json",
-    "Accept": "application/json"});
+    "Accept": "application/json"
+  });
 
-  constructor( private _http:HttpClient, ) {
-   } 
-  
+  constructor(private _http: HttpClient,) {
+  }
 
-//    to be deleted 8888888888888888888888888888888888888888888888
-//   getCategory() {
-//     return this._http.get(`${environment.MainApi}/category/getcategory`).pipe();
-//   }
-//   getSubCategory() {
-//     return this._http.get(`${environment.MainApi}/subcategory/getsubcategory`).pipe();
-//   }
 
-//   getType() {
-//     return this._http.get(`${environment.MainApi}/type/getType`).pipe();
-//   }
-//   getproductsbyVendor(vendorId:any) {
-//     return this._http.get(`${environment.MainApi}/products/getProductbyVendorid/${vendorId}`).pipe();
-//   }
-//   getproductsbyid(id:any) {
-//     return this._http.get(`${environment.MainApi}/products/getProductbyid/`+id).pipe();
-//   }
+  //    to be deleted 8888888888888888888888888888888888888888888888
+  //   getCategory() {
+  //     return this._http.get(`${environment.MainApi}/category/getcategory`).pipe();
+  //   }
+  //   getSubCategory() {
+  //     return this._http.get(`${environment.MainApi}/subcategory/getsubcategory`).pipe();
+  //   }
 
-//   addproducts(body:any): Observable<any> {
-//     return this._http.post<any>(`${environment.MainApi}/products/addproducts`,body,{'headers':this.header}).pipe();
-//   }
+  //   getType() {
+  //     return this._http.get(`${environment.MainApi}/type/getType`).pipe();
+  //   }
+  //   getproductsbyVendor(vendorId:any) {
+  //     return this._http.get(`${environment.MainApi}/products/getProductbyVendorid/${vendorId}`).pipe();
+  //   }
+  //   getproductsbyid(id:any) {
+  //     return this._http.get(`${environment.MainApi}/products/getProductbyid/`+id).pipe();
+  //   }
 
-//   updateProducts(body:any, id:any): Observable<any> {
-//     return this._http.put<any>(`${environment.MainApi}/products/updateproducts/${id}`,body,{'headers':this.header}).pipe();
-//   }
+  //   addproducts(body:any): Observable<any> {
+  //     return this._http.post<any>(`${environment.MainApi}/products/addproducts`,body,{'headers':this.header}).pipe();
+  //   }
 
-//   addImages(image:any){ 
-//      return this._http.post<any>(`${environment.MainApi}/api/upload`,image).pipe();
-//   }
-//   addSubImages(image:any,i){ 
-//     return this._http.post<any>(`${environment.MainApi}/api/upload${i}`,image).pipe();
-//  }
+  //   updateProducts(body:any, id:any): Observable<any> {
+  //     return this._http.put<any>(`${environment.MainApi}/products/updateproducts/${id}`,body,{'headers':this.header}).pipe();
+  //   }
 
-//   getImages(){
-//     return this._http.get<any>(`${environment.MainApi}/images/getimages`).pipe();    
-//   }
+  //   addImages(image:any){ 
+  //      return this._http.post<any>(`${environment.MainApi}/api/upload`,image).pipe();
+  //   }
+  //   addSubImages(image:any,i){ 
+  //     return this._http.post<any>(`${environment.MainApi}/api/upload${i}`,image).pipe();
+  //  }
 
-//   deleteProduct(id:any){
-//     return this._http.delete<any>(`${environment.MainApi}/products/deleteproducts/${id}`).pipe();
-//   }
+  //   getImages(){
+  //     return this._http.get<any>(`${environment.MainApi}/images/getimages`).pipe();    
+  //   }
+
+  //   deleteProduct(id:any){
+  //     return this._http.delete<any>(`${environment.MainApi}/products/deleteproducts/${id}`).pipe();
+  //   }
 
   // TO BE DELETED 888888888888888888888888888888888888888888888
 
 
-  getOrdersbyVendor(vendorId:any) {
-        return this._http.get(`${environment.MainApi}/orders/getordersbyVendorid/${vendorId}`).pipe();
-      }
+  getOrdersbyVendor(vendorId: any) {
+    return this._http.get(`${environment.MainApi}/orders/getordersbyVendorid/${vendorId}`).pipe();
+  }
 
 
 }

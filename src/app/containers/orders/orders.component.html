@@ -1,84 +1,149 @@
 <div class="card">
-    <div class="card-body">
-        <div class="row ">
-            <div class="col-sm-5 p-2 mb-2">
-                <h4 class="card-title mb-0 border-bottom  d-inline">Product Orders</h4>
-            </div>
+  <div class="card-body">
+    <div class="row ">
+      <div class="col-sm-5 p-2 mb-2">
+        <h4 class="card-title mb-0 border-bottom  d-inline">Product Orders</h4>
+      </div>
 
-            
+
+    </div>
+    <div class="flex justify-end">
+      <div class="flex justify-center">
+        <div class="mb-3 xl:w-96">
+          <select class="form-select appearance-none
+            block
+            w-full
+            px-3
+            py-1.5
+            text-base
+            font-normal
+            text-gray-700
+            bg-white bg-clip-padding bg-no-repeat
+            border border-solid border-gray-300
+            rounded
+            transition
+            ease-in-out
+            m-0
+            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            aria-label="Default select example">
+            <option selected>Filter Table By </option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
         </div>
+      </div>
+    </div>
 
-                <table datatable [dtOptions]="dtOptions" class="row-border hover">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Foo</td>
-                            <td>Bar</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Someone</td>
-                            <td>Youknow</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Iamout</td>
-                            <td>Ofinspiration</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Yoda</td>
-                            <td>Skywalker</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Patrick</td>
-                            <td>Dupont</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Barack</td>
-                            <td>Obama</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>François</td>
-                            <td>Holland</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Michel</td>
-                            <td>Popo</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Chuck</td>
-                            <td>Norris</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Simon</td>
-                            <td>Robin</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Louis</td>
-                            <td>Lin</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>Zelda</td>
-                            <td>Link</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- <input type="text" style="padding:8px;margin:15px auto;width:30%;" placeholder="Type to filter the name column..."
+      (keyup)="updateFilter($event)" /> -->
 
-            </div>
-        </div>
+    <!-- <ngx-datatable #myTable class="material expandable h-[800px]" [columnMode]="ColumnMode.force" [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="200" [scrollbarV]="true" [rows]="rows" [limit]="5" (page)="onPage($event)"
+      [selected]="selected" [selectionType]="SelectionType.multiClick" (activate)="onActivate($event)"
+      (select)="onSelect($event)">
+      <ngx-datatable-row-detail [rowHeight]="50" #myDetailRow (toggle)="onDetailToggle($event)">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+          <div style="padding-left:60px; font-size:14px">
+            <div>{{ row.gender }}, {{ row.age }}</div>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
+      <ngx-datatable-column [width]="50" [resizeable]="true" [sortable]="false" [draggable]="false"
+        [canAutoResize]="true">
+        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+          <a href="#" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"
+            title="Expand/Collapse Row" (click)="toggleExpandRow(row)" class="desktop-hidden">
+          </a>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="id" [flexGrow]="3" [minWidth]="200">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{ value }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="productName" [flexGrow]="1">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span class="mobile-hidden">{{ column.name }}</span>
+        </ng-template>
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <span class="mobile-hidden flex justify-center items-center">{{ value }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="quantity" [flexGrow]="1">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span class="mobile-hidden">{{ column.name }}</span>
+        </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <span class="mobile-hidden flex justify-center items-center">{{ value }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="mainImageUrl" [flexGrow]="1">
+        <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+          <span class="mobile-hidden">{{ column.name }} </span>
+        </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <span class="mobile-hidden flex justify-center items-center"><img [src]="value" class="!w-38 !h-30 img-fluid"
+              alt="Product Image"></span>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable> -->
+
+    <div class="w-full p-2 sm:p-2 md:p-6 lg:p-6 xl:p-6 bg-white">
+      <table class="table-fixed  w-full ">
+        <thead class="bg-gray-100 border">
+          <tr>
+            <th class="px-2 py-4">
+              <p class="text-center ">Order Id</p>
+            </th>
+            <th class="px-2 py-4">
+              <p class="text-center ">Name</p>
+            </th>
+            <th class="px-2 py-4">
+              <p class="text-center">Quantity</p>
+            </th>
+            <th class="px-2 py-4">
+              <p class="text-center">Image</p>
+            </th>
+            <th class="px-2 py-4">
+              <p class="text-center">Order Status</p>
+            </th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of rows" class="border">
+            <td class="p-2"> <span class="text-bold flex justify-center  underline">{{data.id}}</span></td>
+            <td class="p-2"> <span class="text-bold flex justify-center  underline">{{data.productName}}</span></td>
+            <td class="p-2"><span class="text-bold flex justify-center  underline">{{data.quantity}}</span></td>
+            <td class="p-2"><img class="object-cover w-30 h-30" [src]=[data.mainImageUrl] /></td>
+            <td class="p-2"><span class="text-bold flex justify-center underline">
+                <span class="animate-bounce" [ngStyle]="{'color':'green'}" *ngIf="data.status == 0"
+                  (click)="changeStatus(0)">Order Received <mat-icon class="pl-2 ">check_circle_outline</mat-icon>
+                </span>
+                <span *ngIf="data.status == 1" [ngStyle]="{'color':'green'}" (click)="changeStatus(1)">Order Accepted
+                  <mat-icon>done_all</mat-icon></span>
+                <span *ngIf="data.status == 2" [ngStyle]="{'color':'green'}" (click)="changeStatus(2)">Packed <mat-icon>
+                    bubble_chart</mat-icon></span>
+                <span *ngIf="data.status == 3" [ngStyle]="{'color':'green'}" (click)="changeStatus(3)">Dispatched
+                  <mat-icon>flight_takeoff</mat-icon></span>
+                <span *ngIf="data.status == 4" [ngStyle]="{'color':'green'}" (click)="changeStatus(5)">Delivered
+                  <mat-icon>thumb_up_alt</mat-icon></span>
+                <span *ngIf="data.status == 5" [ngStyle]="{'color':'red'}" (click)="changeStatus(5)">Cancelled
+                  <mat-icon>cancel</mat-icon></span>
+                <span *ngIf="data.status == 6" [ngStyle]="{'color':'red'}" (click)="changeStatus(6)">Returned <mat-icon>
+                    transit_enterexit</mat-icon></span>
+              </span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <button (click)="test()">test</button>
+
+
+
+
+
+</div>

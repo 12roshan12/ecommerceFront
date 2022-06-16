@@ -27,10 +27,10 @@ export class ProductService {
     return this._http.get(`${environment.MainApi}/type/getType`).pipe();
   }
   getproductsbyVendor(vendorId:any) {
-    return this._http.get(`${environment.MainApi}/products/getProductbyVendorid/${vendorId}`).pipe();
+    return this._http.get(`${environment.MainApi}/products/getProductbyVendorid/${vendorId}`);
   }
   getproductsbyid(id:any) {
-    return this._http.get(`${environment.MainApi}/products/getProductbyid/`+id).pipe();
+    return this._http.get(`${environment.MainApi}/products/getProductbyid/`+id)
   }
 
   addproducts(body:any): Observable<any> {
